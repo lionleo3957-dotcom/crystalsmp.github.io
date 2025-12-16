@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crystal SMP | Server Details</title>
+<style>
+body {
+  margin:0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(270deg, #6a0dad, #1e90ff, #00ffff, #ff00ff, #ff4500, #6a0dad);
+  background-size: 1200% 1200%;
+  animation: animatedBackground 20s ease infinite;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
+}
+
+@keyframes animatedBackground {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+h1 {
+  font-size:3rem;
+  text-align:center;
+  color:#00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff, 0 0 30px #ff1493;
+  margin:20px 0;
+}
+
+.server-detail {
+  background: rgba(0,0,0,0.3);
+  padding: 20px;
+  border-radius: 12px;
+  margin:10px 0;
+  text-align:center;
+  width: 100%;
+  max-width:400px;
+}
+
+.server-detail p {
+  font-size:1.1rem;
+  margin:8px 0;
+  color:#fff;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+.scroll {
+  margin:20px 0;
+  animation: bounce 1.5s infinite;
+  font-size:1.2rem;
+  color:#ff69b4;
+  text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff1493;
+}
+
+@keyframes bounce {
+  0%,100% {transform: translateY(0);}
+  50% {transform: translateY(10px);}
+}
+
+.players-section {
+  margin-top:30px;
+  width:100%;
+  max-width:500px;
+}
+
+.player-card {
+  background: rgba(255,255,255,0.1);
+  padding:10px;
+  margin:5px 0;
+  border-radius:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:1rem;
+}
+
+.player-status {
+  color:#00ffff;
+  font-weight:bold;
+  text-shadow: 0 0 5px #00ffff;
+}
+</style>
+</head>
+<body>
+
+<h1>CRYSTAL SMP</h1>
+
+<div class="server-detail">
+  <p>Server Name: CRYSTAL SMP</p>
+  <p>Server IP: Unknown</p>
+  <p>Server Status: <span style="color:#00ff00; font-weight:bold;">ON</span></p>
+  <p>Server On Date: Unknown</p>
+  <p>Server On Timing: Unknown</p>
+  <p>Server Off Date: Unknown</p>
+  <p>Server Off Timing: Unknown</p>
+</div>
+
+<div class="scroll">⬇ Players Online ⬇</div>
+
+<div class="players-section">
+  <div class="player-card"><span>Umer</span> <span class="player-status">Leader & Businessman</span></div>
+  <div class="player-card"><span>AlexenderMartin</span> <span class="player-status">Judge & Businessman</span></div>
+  <div class="player-card"><span>FaiqPro</span> <span class="player-status">Lawyer</span></div>
+  <div class="player-card"><span>Usman</span> <span class="player-status">Establishment</span></div>
+  <div class="player-card"><span>Qasim</span> <span class="player-status">Unknown</span></div>
+  <div class="player-card"><span>SenpaiSpider</span> <span class="player-status">Businessman</span></div>
+  <div class="player-card"><span>Hashir</span> <span class="player-status">Police</span></div>
+</div>
+
+</body>
+</html>
