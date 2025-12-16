@@ -8,16 +8,27 @@
       margin:0;
       padding:30px;
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #6a0dad, #1e90ff);
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      background-size: 400% 400%;
+      animation: neonGradient 20s ease infinite;
       color:white;
       min-height: 100vh;
     }
+
+    @keyframes neonGradient {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
     h1{
       text-align:center;
       font-size:45px;
       margin-bottom:20px;
-      text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #1e90ff, 0 0 30px #6a0dad;
     }
+
     #searchBar {
       display:block;
       width:100%;
@@ -28,31 +39,32 @@
       border-radius:8px;
       border:none;
       outline:none;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
       color:white;
     }
+
     #itemContainer{
       display:grid;
       grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
       gap:15px;
     }
+
     .item{
       background: rgba(255,255,255,0.05);
       border-radius:12px;
       padding:15px;
       text-align:center;
-      box-shadow: 0 0 10px #6a0dad, 0 0 20px #1e90ff;
+      box-shadow: 0 0 10px #00ffff, 0 0 20px #1e90ff;
       transition: transform 0.3s, box-shadow 0.3s;
+      font-weight:bold;
+      font-size:16px;
     }
+
     .item:hover{
       transform: translateY(-5px);
-      box-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+      box-shadow: 0 0 20px #00ffff, 0 0 30px #6a0dad;
     }
-    .item img{
-      width:50px;
-      height:50px;
-      margin-bottom:8px;
-    }
+
     .price{
       margin-top:8px;
       font-size:16px;
@@ -60,22 +72,23 @@
       justify-content:center;
       align-items:center;
       gap:5px;
-      font-weight:bold;
     }
+
     #backBtn{
       display:block;
-      width:200px;
+      width:220px;
       text-align:center;
       margin:30px auto 0 auto;
       padding:12px;
-      background:#ff00ff;
-      color:#000;
+      background:#1e90ff;
+      color:#fff;
       text-decoration:none;
       border-radius:10px;
       font-weight:bold;
-      box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+      box-shadow: 0 0 10px #1e90ff, 0 0 20px #00ffff;
       transition:0.2s;
     }
+
     #backBtn:hover{
       background:#00ffff;
       color:#000;
@@ -89,46 +102,14 @@
 <input type="text" id="searchBar" placeholder="Search item..." onkeyup="filterItems()">
 
 <div id="itemContainer">
-  <div class="item">
-    <img src="https://static.thenounproject.com/png/2387397-200.png" alt="Diamond">
-    Diamond
-    <div class="price"><i class="fa-solid fa-gem"></i> 0</div>
-  </div>
-  <div class="item">
-    <img src="https://static.thenounproject.com/png/1510356-200.png" alt="Iron Ingot">
-    Iron Ingot
-    <div class="price"><i class="fa-solid fa-gem"></i> 0</div>
-  </div>
-  <div class="item">
-    <img src="https://static.thenounproject.com/png/275900-200.png" alt="Gold Ingot">
-    Gold Ingot
-    <div class="price"><i class="fa-solid fa-gem"></i> 0</div>
-  </div>
-  <div class="item">
-    <img src="https://static.thenounproject.com/png/2032631-200.png" alt="Bread">
-    Bread
-    <div class="price"><i class="fa-solid fa-gem"></i> 0</div>
-  </div>
-  <div class="item">
-    <img src="https://static.thenounproject.com/png/305547-200.png" alt="Emerald">
-    Emerald
-    <div class="price"><i class="fa-solid fa-gem"></i> 0</div>
-  </div>
-  <div class="item">
-    <img src="https://static.thenounproject.com/png/1654964-200.png" alt="Cooked Beef">
-    Cooked Beef
-    <div class="price"><i class="fa-solid fa-gem"></i> 0</div>
-  </div>
-  <div class="item">
-    <img src="https://static.thenounproject.com/png/1679796-200.png" alt="Oak Wood">
-    Oak Wood
-    <div class="price"><i class="fa-solid fa-gem"></i> 0</div>
-  </div>
-  <div class="item">
-    <img src="https://static.thenounproject.com/png/3384220-200.png" alt="Stone">
-    Stone
-    <div class="price"><i class="fa-solid fa-gem"></i> 0</div>
-  </div>
+  <div class="item">Diamond<div class="price"><i class="fa-solid fa-gem"></i> 0</div></div>
+  <div class="item">Iron Ingot<div class="price"><i class="fa-solid fa-gem"></i> 0</div></div>
+  <div class="item">Gold Ingot<div class="price"><i class="fa-solid fa-gem"></i> 0</div></div>
+  <div class="item">Emerald<div class="price"><i class="fa-solid fa-gem"></i> 0</div></div>
+  <div class="item">Bread<div class="price"><i class="fa-solid fa-gem"></i> 0</div></div>
+  <div class="item">Cooked Beef<div class="price"><i class="fa-solid fa-gem"></i> 0</div></div>
+  <div class="item">Oak Wood<div class="price"><i class="fa-solid fa-gem"></i> 0</div></div>
+  <div class="item">Stone<div class="price"><i class="fa-solid fa-gem"></i> 0</div></div>
 </div>
 
 <a id="backBtn" href="index.html">← Back to Home</a>
