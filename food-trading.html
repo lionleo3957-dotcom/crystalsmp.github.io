@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Crystal SMP | Food Trading</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family:'Segoe UI', Tahoma, sans-serif;
+}
+
+body{
+  margin:0;
+  background: radial-gradient(circle at top, #2b1055, #000);
+  color:#fff;
+}
+
+/* ===== HEADER ===== */
+header{
+  text-align:center;
+  padding:50px 20px 30px;
+}
+
+header h1{
+  font-size:3.2rem;
+  background: linear-gradient(90deg,#00f2ff,#8a2be2,#00f2ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation: glow 3s infinite linear;
+}
+
+@keyframes glow{
+  0%{filter:drop-shadow(0 0 5px #00f2ff);}
+  50%{filter:drop-shadow(0 0 20px #8a2be2);}
+  100%{filter:drop-shadow(0 0 5px #00f2ff);}
+}
+
+header h2{
+  margin-top:10px;
+  font-weight:400;
+  letter-spacing:2px;
+  opacity:0.9;
+}
+
+/* ===== SEARCH ===== */
+.search-box{
+  max-width:500px;
+  margin:30px auto;
+}
+
+.search-box input{
+  width:100%;
+  padding:14px 18px;
+  border:none;
+  outline:none;
+  border-radius:30px;
+  background:#111;
+  color:#0ff;
+  font-size:1rem;
+  box-shadow:0 0 15px #00f2ff55;
+}
+
+/* ===== ITEMS GRID ===== */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:linear-gradient(145deg,#111,#1b1b2f);
+  border-radius:16px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 0 20px #6a5acd44;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 0 35px #00f2ff88;
+}
+
+.card img{
+  width:64px;
+  image-rendering:pixelated;
+  margin-bottom:10px;
+}
+
+.card h3{
+  margin:10px 0 6px;
+  font-size:1.2rem;
+}
+
+.price{
+  font-size:1rem;
+  color:#00ffcc;
+}
+
+/* ===== EMERALD ICON ===== */
+.emerald{
+  color:#00ff00;
+  font-weight:bold;
+}
+
+/* ===== BACK BUTTON ===== */
+.back{
+  text-align:center;
+  margin:40px 0 30px;
+}
+
+.back a{
+  text-decoration:none;
+  padding:12px 30px;
+  border-radius:30px;
+  background:linear-gradient(90deg,#00f2ff,#8a2be2);
+  color:#000;
+  font-weight:bold;
+  box-shadow:0 0 20px #00f2ff99;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:20px;
+  font-size:0.9rem;
+  opacity:0.7;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>CRYSTAL SMP</h1>
+  <h2>Food Trading</h2>
+</header>
+
+<div class="search-box">
+  <input type="text" placeholder="Search food item...">
+</div>
+
+<div class="container">
+  <div class="grid">
+
+    <div class="card">
+      <img src="https://minecraftitemids.com/item/64/bread.png">
+      <h3>Bread</h3>
+      <div class="price">8 <span class="emerald">Emeralds</span></div>
+    </div>
+
+    <div class="card">
+      <img src="https://minecraftitemids.com/item/64/cooked_beef.png">
+      <h3>Cooked Beef</h3>
+      <div class="price">8 <span class="emerald">Emeralds</span></div>
+    </div>
+
+    <div class="card">
+      <img src="https://minecraftitemids.com/item/64/apple.png">
+      <h3>Apple</h3>
+      <div class="price">8 <span class="emerald">Emeralds</span></div>
+    </div>
+
+    <div class="card">
+      <img src="https://minecraftitemids.com/item/64/cooked_chicken.png">
+      <h3>Cooked Chicken</h3>
+      <div class="price">8 <span class="emerald">Emeralds</span></div>
+    </div>
+
+    <div class="card">
+      <img src="https://minecraftitemids.com/item/64/golden_carrot.png">
+      <h3>Golden Carrot</h3>
+      <div class="price">8 <span class="emerald">Emeralds</span></div>
+    </div>
+
+    <div class="card">
+      <img src="https://minecraftitemids.com/item/64/baked_potato.png">
+      <h3>Baked Potato</h3>
+      <div class="price">8 <span class="emerald">Emeralds</span></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="back">
+  <a href="index.html">⬅ Back to Home</a>
+</div>
+
+<footer>
+  © 2025 Crystal SMP | Food Trading System
+</footer>
+
+</body>
+</html>
