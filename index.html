@@ -1,98 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crystal SMP | Minecraft Server</title>
-  <style>
-    * { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
-    body {
-     margin: 0;
-     padding: 0;
-     font-family: Arial, sans-serif;
-     color: white;
-     background: linear-gradient(135deg, #6a0dad, #1e90ff, #ff00ff, #00ffff);
-     background-size: 400% 400%;
-     animation: neonGradient 15s ease infinite;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Crystal SMP | Minecraft Server</title>
+<style>
+* { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; margin:0; padding:0; }
+
+/* Animated Neon Gradient Background */
+body {
+  color: #fff;
+  background: linear-gradient(270deg, #6a0dad, #1e90ff, #00ffff, #ff00ff, #ff4500, #6a0dad);
+  background-size: 1200% 1200%;
+  animation: animatedBackground 20s ease infinite;
 }
 
-@keyframes neonGradient {
+@keyframes animatedBackground {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
   100% {background-position: 0% 50%;}
 }
 
-header h1 {
+/* Header */
+header {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  font-size: 4rem;
-  text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #00ffff;
 }
-    }
-    header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 3rem;
-      letter-spacing: 2px;
-    }
-    header p {
-      opacity: 0.8;
-    }
-    .scroll {
-      margin-top: 20px;
-      animation: bounce 1.5s infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(10px); }
-    }
-    section {
-      padding: 50px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: rgba(255,255,255,0.08);
-      padding: 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.3s, background 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      background: rgba(255,255,255,0.15);
-    }
-    .card h3 {
-      margin-top: 0;
-    }
-    .content {
-      display: none;
-      margin-top: 15px;
-      font-size: 0.95rem;
-      opacity: 0.9;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: rgba(0,0,0,0.4);
-      font-size: 0.9rem;
-    }
-  </style>
+header h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+}
+
+/* Crystal - icy/cyber color */
+header h1 span.crystal {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #1e90ff, 0 0 30px #00bfff;
+}
+
+/* SMP - neon animated color */
+header h1 span.smp {
+  background: linear-gradient(45deg, #ff00ff, #ff4500, #1e90ff, #00ff7f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: neonText 3s linear infinite alternate;
+}
+
+@keyframes neonText {
+  0% {filter: drop-shadow(0 0 5px #ff00ff);}
+  50% {filter: drop-shadow(0 0 20px #ff4500);}
+  100% {filter: drop-shadow(0 0 10px #1e90ff);}
+}
+
+header p {
+  opacity: 0.8;
+}
+
+.scroll {
+  margin-top: 20px;
+  animation: bounce 1.5s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+section {
+  padding: 50px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+  text-align:center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.15);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.content {
+  display: none;
+  margin-top: 15px;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.4);
+  font-size: 0.9rem;
+}
+</style>
 </head>
 <body>
 
 <header>
-  <h1>WELCOME TO CRYSTAL SMP</h1>
+  <h1><span class="crystal">CRYSTAL</span> <span class="smp">SMP</span></h1>
   <p>Official Minecraft Survival Multiplayer Server</p>
   <div class="scroll">⬇ Scroll Down ⬇</div>
 </header>
@@ -100,7 +124,6 @@ header h1 {
 <section>
   <h2>Server Sections</h2>
   <div class="grid">
-
     <div class="card" onclick="toggleContent(this)">
       <h3>Server Rules</h3>
       <div class="content">
@@ -143,14 +166,12 @@ header h1 {
         Share your ideas to improve Crystal SMP
       </div>
     </div>
-
   </div>
 </section>
 
 <section>
   <h2>Trading / Economy</h2>
   <div class="grid">
-
     <div class="card" onclick="toggleContent(this)">
       <h3>Food Trading</h3>
       <div class="content">
@@ -163,7 +184,6 @@ header h1 {
       <h3>Budget</h3>
       <p>Click to open</p>
     </div>
-  </section>
 
     <div class="card" onclick="toggleContent(this)">
       <h3>Mining Items</h3>
@@ -172,15 +192,6 @@ header h1 {
         10 Iron = 4 Emeralds
       </div>
     </div>
-
-    <div class="card" onclick="toggleContent(this)">
-      <h3>Budget</h3>
-      <div class="content">
-        Starter Kit = 20 Emeralds<br>
-        VIP Kit = 100 Emeralds
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -189,10 +200,10 @@ header h1 {
 </footer>
 
 <script>
-  function toggleContent(card) {
-    const content = card.querySelector('.content');
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
-  }
+function toggleContent(card) {
+  const content = card.querySelector('.content');
+  content.style.display = content.style.display === 'block' ? 'none' : 'block';
+}
 </script>
 
 </body>
