@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRYSTAL SMP Voting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#fff;margin:0;padding:0}
+    header{text-align:center;padding:30px;background:#111a33}
+    h1{margin:0;color:#00e5ff}
+    .container{max-width:900px;margin:auto;padding:20px}
+    .card{background:#162044;border-radius:10px;padding:20px;margin-bottom:20px}
+    button{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;background:#00e5ff;color:#000;font-weight:bold}
+    button.red{background:#ff4d4d;color:#fff}
+    button.gray{background:#888;color:#000}
+    input{width:100%;padding:10px;border-radius:6px;border:none;margin:8px 0}
+    .hidden{display:none}
+    .center{text-align:center}
+    a{color:#00e5ff;cursor:pointer}
+    ul{list-style:none;padding:0}
+    li{margin:6px 0}
+  </style>
+</head>
+<body>
+<header>
+  <h1>CRYSTAL SMP</h1>
+  <p>Vote once per month to support the server</p>
+</header>
+
+<div class="container">
+
+<!-- LOGIN -->
+<div class="card" id="loginCard">
+  <h2>🔐 Login</h2>
+  <input type="text" id="username" placeholder="Minecraft Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- VOTING -->
+<div class="card hidden" id="voteCard">
+  <h2 class="center">🗳️ Cast Your Vote</h2>
+  <p class="center">Election Type: <b>Leader Election</b></p>
+
+  <div class="card">
+    <h3>Umer</h3>
+    <p>Party: MPI</p>
+    <button onclick="castVote('Umer')">Vote for Umer</button>
+  </div>
+
+  <div class="card">
+    <h3>Usman</h3>
+    <p>Party: UTI</p>
+    <button onclick="castVote('Usman')">Vote for Usman</button>
+  </div>
+
+  <p id="voteMsg" class="center"></p>
+
+  <div class="center">
+    <button class="gray" onclick="logout()">Logout</button>
+    <button class="gray" onclick="goHome()">Back to Home</button>
+  </div>
+</div>
+
+<!-- LEADERBOARD -->
+<div class="card hidden" id="leaderboardCard">
+  <h2>🏆 Top Voters Leaderboard</h2>
+  <ul id="leaderboard"></ul>
+</div>
+
+<!-- HISTORY -->
+<div class="card hidden" id="historyCard">
+  <h2>🧾 Vote History</h2>
+  <ul id="history"></ul>
+</div>
+
+<!-- ADMIN -->
+<div class="card hidden" id="adminCard">
+  <h2>👑 Admin Panel</h2>
+  <button class="red" onclick="resetVotes()">Reset All Votes</button>
+</div>
+
+</div>
+
+<script>
+// Storage keys
+const USERS='csmp_users';
+const SESSION='csmp_session';
+const VOTES='csmp_votes';
+const HISTORY='csmp_history';
+
+function getData(key,def){return JSON.parse(localStorage.getItem(key))||def}
+function setData(key,val){localStorage.setItem(key,JSON.stringify(val))}
+
+function login(){
+  const u=username.value.trim();
+  const p=password.value.trim();
+  if(!u||!p){alert('Invalid try again');return}
+
+  let users=getData(USERS,{});
+
+  if(users[u] && users[u]!==p){alert('Invalid try again');return}
+
+  users[u]=p; // permanent password
+  setData(USERS,users);
+  setData(SESSION,{user:u});
+  showVote();
+}
+
+function showVote(){
+  loginCard.classList.add('hidden');
+  voteCard.classList.remove('hidden');
+  leaderboardCard.classList.remove('hidden');
+  historyCard.classList.remove('hidden');
+  adminCard.classList.remove('hidden');
+  loadLeaderboard();
+  loadHistory();
+}
+
+function logout(){
+  localStorage.removeItem(SESSION);
+  location.reload();
+}
+
+function castVote(candidate){
+  const session=getData(SESSION,null);
+  if(!session){alert('Login required');return}
+
+  let votes=getData(VOTES,{});
+  const month=new Date().getMonth();
+
+  if(votes[session.user] && votes[session.user].month===month){
+    voteMsg.innerText='❌ You already voted this month';
+    return;
+  }
+
+  votes[session.user]={candidate,month};
+  setData(VOTES,votes);
+
+  let hist=getData(HISTORY,[]);
+  hist.push({user:session.user,candidate,date:new Date().toLocaleString()});
+  setData(HISTORY,hist);
+
+  voteMsg.innerText='✅ Vote Cast Successfully';
+  loadLeaderboard();
+  loadHistory();
+}
+
+function loadLeaderboard(){
+  const votes=getData(VOTES,{});
+  let count={};
+  Object.values(votes).forEach(v=>{count[v.candidate]=(count[v.candidate]||0)+1});
+  leaderboard.innerHTML='';
+  for(let c in count){
+    const li=document.createElement('li');
+    li.textContent=`${c}: ${count[c]} votes`;
+    leaderboard.appendChild(li);
+  }
+}
+
+function loadHistory(){
+  const hist=getData(HISTORY,[]);
+  history.innerHTML='';
+  hist.forEach(h=>{
+    const li=document.createElement('li');
+    li.textContent=`${h.user} voted for ${h.candidate} on ${h.date}`;
+    history.appendChild(li);
+  });
+}
+
+function resetVotes(){
+  if(confirm('Are you sure?')){
+    localStorage.removeItem(VOTES);
+    localStorage.removeItem(HISTORY);
+    loadLeaderboard();
+    loadHistory();
+  }
+}
+
+function goHome(){
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Auto login if session exists
+if(getData(SESSION,null)) showVote();
+</script>
+</body>
+</html>
