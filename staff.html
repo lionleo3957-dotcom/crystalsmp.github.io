@@ -36,44 +36,23 @@ h1 {
   margin:15px 0;
   text-shadow:0 0 5px #00ffff;
 }
-.staff-grid {
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  max-width:400px;
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 20px; 
+  border-radius: 12px; 
+  cursor: pointer; 
+  transition: transform 0.3s, background 0.3s; 
+  margin-bottom:20px;
   width:100%;
-  margin:10px 0;
+  max-width:500px;
 }
-.staff-card {
-  background: rgba(255,255,255,0.1);
-  padding:10px;
-  border-radius:8px;
-  cursor:pointer;
-  text-align:center;
-  transition: transform 0.3s, background 0.3s;
-}
-.staff-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255,255,255,0.25);
-}
-#details {
-  margin-top:20px;
-  padding:10px;
-  background: rgba(0,0,0,0.3);
-  border-radius:8px;
-  width:100%;
-  max-width:400px;
-  text-align:center;
-  font-size:1.1rem;
-  color:#ff1493;
-}
-.scroll {
-  margin:20px 0;
-  animation:bounce 1.5s infinite;
-  font-size:1.2rem;
-  color:#ff69b4;
-  text-align:center;
-}
+.card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.15); }
+.staff-content { display: none; margin-top:10px; }
+.staff-member { margin:5px 0; opacity:0; transform: translateY(-10px); transition: all 0.5s ease; }
+.staff-member.show { opacity:1; transform: translateY(0); }
+.role { font-size:0.9rem; color:#00ffff; margin-left:10px; }
+.name { font-weight:bold; color:#ff69b4; cursor:pointer; }
+.scroll {margin:20px 0; animation:bounce 1.5s infinite; font-size:1.2rem; color:#ff69b4; text-align:center;}
 @keyframes bounce {0%,100% {transform:translateY(0);}50% {transform:translateY(10px);}}
 </style>
 </head>
@@ -83,31 +62,50 @@ h1 {
 
 <!-- Government Staff Section -->
 <div class="section-title">Government Staff</div>
-<div class="staff-grid">
-  <div class="staff-card" onclick="showDetails('Leader')">Umer</div>
-  <div class="staff-card" onclick="showDetails('Judge')">AlexenderMartin</div>
-  <div class="staff-card" onclick="showDetails('Date Changer')">FaiqPro</div>
-  <div class="staff-card" onclick="showDetails('Establishment')">Usman</div>
-  <div class="staff-card" onclick="showDetails('Police')">Hashir</div>
+<div class="card" onclick="toggleStaff(this)">
+  <h3>Government Staff</h3>
+  <div class="staff-content">
+    <div class="staff-member"><span class="name">Umer</span><div class="role">Leader</div></div>
+    <div class="staff-member"><span class="name">AlexenderMartin</span><div class="role">Judge</div></div>
+    <div class="staff-member"><span class="name">FaiqPro</span><div class="role">Date Changer</div></div>
+    <div class="staff-member"><span class="name">Usman</span><div class="role">Establishment</div></div>
+    <div class="staff-member"><span class="name">Hashir</span><div class="role">Police</div></div>
+  </div>
 </div>
-
-<div id="details">Click a staff member to see their role</div>
 
 <div class="scroll">⬇ Private Staff ⬇</div>
 
 <!-- Private Staff Section -->
-<div class="staff-grid">
-  <div class="staff-card" onclick="showDetails('ThunderStorm Company Owner')">Umer</div>
-  <div class="staff-card" onclick="showDetails('ThunderStorm Company CEO')">AlexenderMartin</div>
-  <div class="staff-card" onclick="showDetails('ThunderStorm Company Cofounder')">FaiqPro</div>
-  <div class="staff-card" onclick="showDetails('ThunderStorm Company Employee')">Hassaan</div>
-  <div class="staff-card" onclick="showDetails('Beeroot Company Shareholder')">SenpaiSpider</div>
-  <div class="staff-card" onclick="showDetails('Unknown')">AssassionZaid</div>
+<div class="section-title">Private Staff</div>
+<div class="card" onclick="toggleStaff(this)">
+  <h3>Private Staff</h3>
+  <div class="staff-content">
+    <div class="staff-member"><span class="name">Umer</span><div class="role">ThunderStorm Company Owner</div></div>
+    <div class="staff-member"><span class="name">AlexenderMartin</span><div class="role">ThunderStorm Company CEO</div></div>
+    <div class="staff-member"><span class="name">FaiqPro</span><div class="role">ThunderStorm Company Cofounder</div></div>
+    <div class="staff-member"><span class="name">Hassaan</span><div class="role">ThunderStorm Company Employee</div></div>
+    <div class="staff-member"><span class="name">SenpaiSpider</span><div class="role">Beeroot Company Shareholder</div></div>
+    <div class="staff-member"><span class="name">AssassionZaid</span><div class="role">Unknown</div></div>
+  </div>
 </div>
 
 <script>
-function showDetails(role){
-  document.getElementById('details').innerText = 'Role: ' + role;
+function toggleStaff(card){
+  const content = card.querySelector('.staff-content');
+  if(content.style.display==='block'){
+    // hide with animation
+    const members = content.querySelectorAll('.staff-member');
+    members.forEach((m,i)=>{
+      setTimeout(()=>{ m.classList.remove('show'); }, i*100);
+    });
+    setTimeout(()=>{ content.style.display='none'; }, members.length*100+200);
+  } else {
+    content.style.display='block';
+    const members = content.querySelectorAll('.staff-member');
+    members.forEach((m,i)=>{
+      setTimeout(()=>{ m.classList.add('show'); }, i*100);
+    });
+  }
 }
 </script>
 
