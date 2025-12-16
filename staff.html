@@ -7,40 +7,35 @@
 <style>
 body {
   margin:0;
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(270deg, #6a0dad, #1e90ff, #00ffff, #ff00ff, #ff4500, #6a0dad);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(270deg,#6a0dad,#1e90ff,#00ffff,#ff00ff,#ff4500,#6a0dad);
   background-size: 1200% 1200%;
-  animation: animatedBackground 20s ease infinite;
+  animation: animatedBG 20s ease infinite;
   color:white;
   display:flex;
   flex-direction:column;
   align-items:center;
-  min-height:100vh;
   padding:20px;
+  min-height:100vh;
 }
-
-@keyframes animatedBackground {
+@keyframes animatedBG {
   0% {background-position:0% 50%;}
   50% {background-position:100% 50%;}
   100% {background-position:0% 50%;}
 }
-
 h1 {
   font-size:3rem;
   text-align:center;
   color:#00ffff;
-  text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff, 0 0 30px #ff1493;
+  text-shadow:0 0 10px #00ffff,0 0 20px #ff00ff,0 0 30px #ff1493;
   margin:20px 0;
 }
-
-/* Section styling */
 .section-title {
   font-size:1.8rem;
   text-align:center;
   margin:15px 0;
-  text-shadow: 0 0 5px #00ffff;
+  text-shadow:0 0 5px #00ffff;
 }
-
 .staff-grid {
   display:flex;
   flex-direction:column;
@@ -49,7 +44,6 @@ h1 {
   width:100%;
   margin:10px 0;
 }
-
 .staff-card {
   background: rgba(255,255,255,0.1);
   padding:10px;
@@ -58,25 +52,29 @@ h1 {
   text-align:center;
   transition: transform 0.3s, background 0.3s;
 }
-
 .staff-card:hover {
   transform: translateY(-5px);
   background: rgba(255,255,255,0.25);
 }
-
-/* Scroll animation for Private Staff */
+#details {
+  margin-top:20px;
+  padding:10px;
+  background: rgba(0,0,0,0.3);
+  border-radius:8px;
+  width:100%;
+  max-width:400px;
+  text-align:center;
+  font-size:1.1rem;
+  color:#ff1493;
+}
 .scroll {
   margin:20px 0;
-  animation: bounce 1.5s infinite;
+  animation:bounce 1.5s infinite;
   font-size:1.2rem;
   color:#ff69b4;
-  text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff1493;
+  text-align:center;
 }
-
-@keyframes bounce {
-  0%,100% {transform: translateY(0);}
-  50% {transform: translateY(10px);}
-}
+@keyframes bounce {0%,100% {transform:translateY(0);}50% {transform:translateY(10px);}}
 </style>
 </head>
 <body>
@@ -86,24 +84,32 @@ h1 {
 <!-- Government Staff Section -->
 <div class="section-title">Government Staff</div>
 <div class="staff-grid">
-  <div class="staff-card" onclick="alert('Leader')">Umer</div>
-  <div class="staff-card" onclick="alert('Judge')">AlexenderMartin</div>
-  <div class="staff-card" onclick="alert('Date Changer')">FaiqPro</div>
-  <div class="staff-card" onclick="alert('Establishment')">Usman</div>
-  <div class="staff-card" onclick="alert('Police')">Hashir</div>
+  <div class="staff-card" onclick="showDetails('Leader')">Umer</div>
+  <div class="staff-card" onclick="showDetails('Judge')">AlexenderMartin</div>
+  <div class="staff-card" onclick="showDetails('Date Changer')">FaiqPro</div>
+  <div class="staff-card" onclick="showDetails('Establishment')">Usman</div>
+  <div class="staff-card" onclick="showDetails('Police')">Hashir</div>
 </div>
+
+<div id="details">Click a staff member to see their role</div>
 
 <div class="scroll">⬇ Private Staff ⬇</div>
 
 <!-- Private Staff Section -->
 <div class="staff-grid">
-  <div class="staff-card">Umer - ThunderStorm Company Owner</div>
-  <div class="staff-card">AlexenderMartin - ThunderStorm Company CEO</div>
-  <div class="staff-card">FaiqPro - ThunderStorm Company Cofounder</div>
-  <div class="staff-card">Hassaan - ThunderStorm Company Employee</div>
-  <div class="staff-card">SenpaiSpider - Beeroot Company Shareholder</div>
-  <div class="staff-card">AssassionZaid - Unknown</div>
+  <div class="staff-card" onclick="showDetails('ThunderStorm Company Owner')">Umer</div>
+  <div class="staff-card" onclick="showDetails('ThunderStorm Company CEO')">AlexenderMartin</div>
+  <div class="staff-card" onclick="showDetails('ThunderStorm Company Cofounder')">FaiqPro</div>
+  <div class="staff-card" onclick="showDetails('ThunderStorm Company Employee')">Hassaan</div>
+  <div class="staff-card" onclick="showDetails('Beeroot Company Shareholder')">SenpaiSpider</div>
+  <div class="staff-card" onclick="showDetails('Unknown')">AssassionZaid</div>
 </div>
+
+<script>
+function showDetails(role){
+  document.getElementById('details').innerText = 'Role: ' + role;
+}
+</script>
 
 </body>
 </html>
