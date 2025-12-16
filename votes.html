@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Crystal SMP | Votes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(135deg,#12002b,#1f005c,#001f3f);
+  color:#fff;
+}
+
+.header{
+  text-align:center;
+  padding:40px 20px;
+}
+
+.header h1{
+  font-size:42px;
+  letter-spacing:4px;
+  color:#7df9ff;
+  text-shadow:0 0 20px #00f6ff;
+}
+
+.container{
+  max-width:520px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.08);
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 0 25px rgba(0,255,255,0.3);
+  margin-bottom:25px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  border-radius:10px;
+  outline:none;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:linear-gradient(135deg,#00f6ff,#0077ff);
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 15px rgba(0,246,255,0.8);
+}
+
+.vote{
+  background:rgba(0,0,0,0.4);
+  padding:12px;
+  border-radius:10px;
+  margin:8px 0;
+}
+
+.vote span{
+  color:#00f6ff;
+  font-weight:bold;
+}
+
+.back{
+  text-align:center;
+  margin:30px 0;
+}
+
+.back a{
+  color:#00f6ff;
+  text-decoration:none;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>CRYSTAL SMP</h1>
+  <p>Vote once per month to support the server</p>
+</div>
+
+<div class="container">
+
+  <!-- VOTE FORM -->
+  <div class="card">
+    <h3>Cast Your Vote</h3>
+    <input type="text" id="username" placeholder="Minecraft Username">
+    <button onclick="submitVote()">Submit Vote</button>
+  </div>
+
+  <!-- VOTES LIST -->
+  <div class="card">
+    <h3>Total Votes: <span id="totalVotes">0</span></h3>
+    <div id="votesList"></div>
+  </div>
+
+</div>
+
+<div class="back">
+  <a href="index.html">⬅ Back to Home</a>
+</div>
+
+<script>
+const STORAGE_KEY = "crystalVotesV2";
+const MONTH_LIMIT = 30 * 24 * 60 * 60 * 1000;
+
+let votes = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+// Remove votes older than 30 days
+votes = votes.filter(v => Date.now() - v.time < MONTH_LIMIT);
+saveVotes();
+
+function saveVotes(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(votes));
+}
+
+function submitVote(){
+  const username = document.getElementById("username").value.trim().toLowerCase();
+  if(username === ""){
+    alert("Enter Minecraft Username");
+    return;
+  }
+
+  // Check if user already voted
+  const alreadyVoted = votes.find(v => v.name === username);
+  if(alreadyVoted){
+    alert("You have already voted this month!");
+    return;
+  }
+
+  votes.unshift({
+    name: username,
+    time: Date.now()
+  });
+
+  saveVotes();
+  document.getElementById("username").value = "";
+  renderVotes();
+}
+
+function renderVotes(){
+  const list = document.getElementById("votesList");
+  list.innerHTML = "";
+
+  votes.forEach(v=>{
+    const div = document.createElement("div");
+    div.className = "vote";
+    div.innerHTML = `<span>${v.name}</span> voted`;
+    list.appendChild(div);
+  });
+
+  document.getElementById("totalVotes").innerText = votes.length;
+}
+
+renderVotes();
+</script>
+
+</body>
+</html>
