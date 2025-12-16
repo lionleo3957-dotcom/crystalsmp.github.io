@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crystal SMP | Minecraft Server</title>
+  <style>
+    * { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+    }
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      letter-spacing: 2px;
+    }
+    header p {
+      opacity: 0.8;
+    }
+    .scroll {
+      margin-top: 20px;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+    section {
+      padding: 50px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.08);
+      padding: 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.15);
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    .content {
+      display: none;
+      margin-top: 15px;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.4);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>WELCOME TO CRYSTAL SMP</h1>
+  <p>Official Minecraft Survival Multiplayer Server</p>
+  <div class="scroll">⬇ Scroll Down ⬇</div>
+</header>
+
+<section>
+  <h2>Server Sections</h2>
+  <div class="grid">
+
+    <div class="card" onclick="toggleContent(this)">
+      <h3>Server Rules</h3>
+      <div class="content">
+        No griefing<br>
+        No hacking<br>
+        Respect all players
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleContent(this)">
+      <h3>Staff / Roles</h3>
+      <div class="content">
+        Owner<br>
+        Admin<br>
+        Moderator<br>
+        Helper
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleContent(this)">
+      <h3>Jobs</h3>
+      <div class="content">
+        Miner<br>
+        Farmer<br>
+        Hunter<br>
+        Builder
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleContent(this)">
+      <h3>Votes</h3>
+      <div class="content">
+        Vote daily and earn rewards!
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleContent(this)">
+      <h3>Feedback</h3>
+      <div class="content">
+        Share your ideas to improve Crystal SMP
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Trading / Economy</h2>
+  <div class="grid">
+
+    <div class="card" onclick="toggleContent(this)">
+      <h3>Food Trading</h3>
+      <div class="content">
+        15 Bread = 10 Emeralds<br>
+        10 Cooked Beef = 12 Emeralds
+      </div>
+    </div>
+
+    <div class="card" onclick="window.location.href='budget.html'">
+      <h3>Budget</h3>
+      <p>Click to open</p>
+    </div>
+  </section>
+
+    <div class="card" onclick="toggleContent(this)">
+      <h3>Mining Items</h3>
+      <div class="content">
+        1 Diamond = 5 Emeralds<br>
+        10 Iron = 4 Emeralds
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleContent(this)">
+      <h3>Budget</h3>
+      <div class="content">
+        Starter Kit = 20 Emeralds<br>
+        VIP Kit = 100 Emeralds
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2025 Crystal SMP | Minecraft Server Website
+</footer>
+
+<script>
+  function toggleContent(card) {
+    const content = card.querySelector('.content');
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+  }
+</script>
+
+</body>
+</html>
