@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crystal SMP | Staff</title>
+<style>
+body {
+  margin:0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(270deg, #6a0dad, #1e90ff, #00ffff, #ff00ff, #ff4500, #6a0dad);
+  background-size: 1200% 1200%;
+  animation: animatedBackground 20s ease infinite;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
+}
+
+@keyframes animatedBackground {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+h1 {
+  font-size:3rem;
+  text-align:center;
+  color:#00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff, 0 0 30px #ff1493;
+  margin:20px 0;
+}
+
+/* Section styling */
+.section-title {
+  font-size:1.8rem;
+  text-align:center;
+  margin:15px 0;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+.staff-grid {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-width:400px;
+  width:100%;
+  margin:10px 0;
+}
+
+.staff-card {
+  background: rgba(255,255,255,0.1);
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+  text-align:center;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.staff-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.25);
+}
+
+/* Scroll animation for Private Staff */
+.scroll {
+  margin:20px 0;
+  animation: bounce 1.5s infinite;
+  font-size:1.2rem;
+  color:#ff69b4;
+  text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff1493;
+}
+
+@keyframes bounce {
+  0%,100% {transform: translateY(0);}
+  50% {transform: translateY(10px);}
+}
+</style>
+</head>
+<body>
+
+<h1>CRYSTAL SMP</h1>
+
+<!-- Government Staff Section -->
+<div class="section-title">Government Staff</div>
+<div class="staff-grid">
+  <div class="staff-card" onclick="alert('Leader')">Umer</div>
+  <div class="staff-card" onclick="alert('Judge')">AlexenderMartin</div>
+  <div class="staff-card" onclick="alert('Date Changer')">FaiqPro</div>
+  <div class="staff-card" onclick="alert('Establishment')">Usman</div>
+  <div class="staff-card" onclick="alert('Police')">Hashir</div>
+</div>
+
+<div class="scroll">⬇ Private Staff ⬇</div>
+
+<!-- Private Staff Section -->
+<div class="staff-grid">
+  <div class="staff-card">Umer - ThunderStorm Company Owner</div>
+  <div class="staff-card">AlexenderMartin - ThunderStorm Company CEO</div>
+  <div class="staff-card">FaiqPro - ThunderStorm Company Cofounder</div>
+  <div class="staff-card">Hassaan - ThunderStorm Company Employee</div>
+  <div class="staff-card">SenpaiSpider - Beeroot Company Shareholder</div>
+  <div class="staff-card">AssassionZaid - Unknown</div>
+</div>
+
+</body>
+</html>
