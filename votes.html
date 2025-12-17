@@ -82,8 +82,14 @@
 <div class="card hidden" id="adminCard">
   <h2>👑 Admin Panel</h2>
   <button class="red" onclick="resetVotes()">Reset All Votes</button>
-  <button onclick="toggleVoting(true)">Start Voting</button>
-  <button onclick="toggleVoting(false)">Stop Voting</button>
+  <hr>
+  <h3>✏️ Change User Vote</h3>
+  <input type="text" id="editUser" placeholder="Username">
+  <select id="editCandidate">
+    <option value="Umer">Umer (MPI)</option>
+    <option value="Usman">Usman (UTI)</option>
+  </select>
+  <button onclick="adminChangeVote()">Apply Vote</button>
   <p id="adminMsg"></p>
 </div>
 
@@ -199,9 +205,7 @@ function loadHistory(){
 
 function resetVotes(){
   const session=getData(SESSION,null);
-  if(!session || session.role!=='admin'){
-    alert('Not allowed');return;
-  }
+  if(!session || session.role!=='admin'){alert('Not allowed');return}
   if(confirm('Are you sure?')){
     localStorage.removeItem(VOTES);
     localStorage.removeItem(HISTORY);
@@ -209,6 +213,28 @@ function resetVotes(){
     loadHistory();
   }
 }
+
+function adminChangeVote(){
+  const session=getData(SESSION,null);
+  if(!session || session.role!=='admin'){alert('Not allowed');return}
+
+  const user=document.getElementById('editUser').value.trim();
+  const candidate=document.getElementById('editCandidate').value;
+  if(!user){adminMsg.innerText='Enter username';return}
+
+  let votes=getData(VOTES,{});
+  votes[user]={candidate,month:new Date().getMonth()};
+  setData(VOTES,votes);
+
+  let hist=getData(HISTORY,[]);
+  hist.push({user:user,candidate:candidate,date:new Date().toLocaleString(),editedBy:'ADMIN'});
+  setData(HISTORY,hist);
+
+  adminMsg.innerText='✅ Vote updated for '+user;
+  loadLeaderboard();
+  loadHistory();
+}
+
 
 function toggleVoting(state){
   setData(SETTINGS,{voting:state});
