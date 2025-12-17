@@ -9,52 +9,37 @@
 body {
   margin:0;
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #0f0, #0ff, #ff0, #ff8800);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  background: linear-gradient(135deg, #0b0c0f, #1a1a1a, #111, #222);
   color:#fff;
-}
-
-/* Gradient Animation */
-@keyframes gradientBG {
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
 }
 
 /* Header */
 header {
   text-align:center;
-  padding:20px;
+  padding:25px 10px;
 }
 header h1 {
   font-size:3rem;
   font-family:'Courier New', monospace;
-  color:#00ffea;
-  text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffea, 0 0 30px #00ffea;
-  margin:5px;
-  animation: glowHeader 2s ease-in-out infinite alternate;
-}
-@keyframes glowHeader {
-  0%{text-shadow:0 0 5px #0ff,0 0 10px #0ff,0 0 20px #0ff;}
-  100%{text-shadow:0 0 15px #0ff,0 0 30px #0ff,0 0 45px #0ff;}
+  color:#0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  margin-bottom:10px;
 }
 
 /* Back to Home */
 .back-home {
   display:inline-block;
   margin:10px auto;
-  padding:10px 15px;
+  padding:12px 20px;
   border-radius:8px;
-  background: #ff0;
+  background: #00ff99;
   color:#000;
   text-decoration:none;
   font-weight:bold;
   transition:0.3s;
 }
 .back-home:hover {
-  background:#ff8800;
-  color:#000;
+  background:#00ffaa;
 }
 
 /* Search Bar */
@@ -86,18 +71,17 @@ section{
   font-size:2rem;
   text-align:center;
   margin-bottom:15px;
-  color:#ffea00;
-  text-shadow: 0 0 5px #ffea00, 0 0 10px #ffea00;
-  animation: glowTitle 2s infinite alternate;
 }
-@keyframes glowTitle{
-  0%{text-shadow:0 0 5px #ffea00,0 0 10px #ffea00;}
-  100%{text-shadow:0 0 15px #ffea00,0 0 30px #ffea00;}
-}
+
+/* Different neon colors for headings */
+.officials-title{color:#ff3c00; text-shadow:0 0 10px #ff3c00;}
+.taxes-title{color:#00ffcc; text-shadow:0 0 10px #00ffcc;}
+.progress-title{color:#ffcc00; text-shadow:0 0 10px #ffcc00;}
+.development-title{color:#ff00ff; text-shadow:0 0 10px #ff00ff;}
 
 /* Cards */
 .card{
-  background: rgba(0,255,255,0.1);
+  background: rgba(50,50,50,0.4);
   padding:15px;
   margin:10px 0;
   border-radius:10px;
@@ -105,15 +89,17 @@ section{
   cursor:pointer;
 }
 .card:hover{
-  background: rgba(255,255,0,0.2);
+  background: rgba(0,255,255,0.2);
   transform: translateY(-5px);
 }
 
-/* Neon text per tax / official */
-.tax-type{color:#00ffea; font-weight:bold;}
-.tax-value{color:#ff0; font-weight:bold;}
-.official-name{color:#ff8800; font-weight:bold;}
-.official-role{color:#ff0; font-style:italic;}
+/* Neon text classes */
+.tax-type{font-weight:bold;}
+.tax-value{font-weight:bold;}
+.official-name{font-weight:bold;}
+.official-role{font-style:italic;}
+.progress-text{color:#0ff; font-weight:bold;}
+.development-text{color:#ff0; font-weight:bold;}
 
 /* Animated scroll */
 .scroll {
@@ -138,7 +124,7 @@ section{
 <input class="search-bar" type="text" placeholder="Search Officials / Taxes / Progress..." onkeyup="filterContent(this)">
 
 <section class="officials">
-<h2 class="section-title">Government Officials</h2>
+<h2 class="section-title officials-title">Government Officials</h2>
 <div class="scroll">⬇ Scroll Down ⬇</div>
 <div class="card"><p class="official-name">Umer</p><p class="official-role">Leader</p></div>
 <div class="card"><p class="official-name">AlexenderMartin</p><p class="official-role">Judge</p></div>
@@ -148,35 +134,30 @@ section{
 </section>
 
 <section class="taxes">
-<h2 class="section-title">Taxes</h2>
-<div class="card"><span class="tax-type">Fram AREA Tax:</span> <span class="tax-value">3%</span></div>
-<div class="card"><span class="tax-type">Income Tax:</span> <span class="tax-value">0%</span></div>
-<div class="card"><span class="tax-type">Property Tax:</span> <span class="tax-value">0%</span></div>
-<div class="card"><span class="tax-type">Business Tax:</span> <span class="tax-value">0%</span></div>
-<div class="card"><span class="tax-type">Nether Portal Tax:</span> <span class="tax-value">2%</span></div>
+<h2 class="section-title taxes-title">Taxes</h2>
+<div class="card"><span class="tax-type" style="color:#ff6600;">Income Tax:</span> <span class="tax-value" style="color:#00ffcc;">15%</span></div>
+<div class="card"><span class="tax-type" style="color:#ccff00;">Property Tax:</span> <span class="tax-value" style="color:#ff00ff;">5%</span></div>
+<div class="card"><span class="tax-type" style="color:#ff00cc;">Business Tax:</span> <span class="tax-value" style="color:#00ff99;">10%</span></div>
+<div class="card"><span class="tax-type" style="color:#00ffff;">Nether Portal Tax:</span> <span class="tax-value" style="color:#ff9900;">2%</span></div>
 </section>
 
 <section class="progress">
-<h2 class="section-title">Progress</h2>
+<h2 class="section-title progress-title">Progress</h2>
 <div class="card">
-<p>A new player will receive 32 emeralds from the government upon joining Crystal SMP</p>
-<p>New Structures Built: 15</p>
-<p>Server Events Held: 1</p>
+<p class="progress-text">Naye player ne Crystal SMP join karne par 32 Emeralds milege</p>
+<p class="progress-text">New Structures Built: 30</p>
+<p class="progress-text">Server Events Held: 5</p>
 </div>
 </section>
 
 <section class="development">
-<h2 class="section-title">Development</h2>
+<h2 class="section-title development-title">Development</h2>
 <div class="card">
-<p>Green AREA – 40% Complete</p>
-<p>Railway 1to4 – 100% Complete</p>
-<p>New City Project – 0% Complete</p>
-<p>Marketplace Expansion – 0% Complete</p>
-<p>Resource Hub Upgrade – 50% Complete</p>
+<p class="development-text">New City Project – 50% Complete</p>
+<p class="development-text">Marketplace Expansion – 70% Complete</p>
+<p class="development-text">Resource Hub Upgrade – 100% Complete</p>
 </div>
 </section>
-
-<a class="back-home" href="index.html">Back to Home</a>
 
 <script>
 function filterContent(input){
