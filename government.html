@@ -18,13 +18,44 @@ header {
   text-align:center;
   padding:25px 10px;
 }
+
+/* CRYSTAL SMP Government Header with multi-color neon animation */
 header h1 {
   font-size:3rem;
   font-family:'Courier New', monospace;
-  color:#0ff;
-  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
-  margin-bottom:10px;
 }
+header h1 span.crystal{
+  color:#0ff;
+  text-shadow:0 0 10px #0ff, 0 0 20px #0ff;
+  animation: glow1 2s infinite alternate;
+}
+header h1 span.s{
+  color:#ff3cff;
+  text-shadow:0 0 10px #ff3cff,0 0 20px #ff3cff;
+  animation: glow2 2s infinite alternate;
+}
+header h1 span.m{
+  color:#ffcc00;
+  text-shadow:0 0 10px #ffcc00,0 0 20px #ffcc00;
+  animation: glow3 2s infinite alternate;
+}
+header h1 span.p{
+  color:#00ff99;
+  text-shadow:0 0 10px #00ff99,0 0 20px #00ff99;
+  animation: glow4 2s infinite alternate;
+}
+header h1 span.government{
+  color:#ff6600;
+  text-shadow:0 0 10px #ff6600,0 0 20px #ff6600;
+  animation: glow5 2s infinite alternate;
+}
+
+/* Glow Animations */
+@keyframes glow1 { 0% {text-shadow:0 0 5px #0ff,0 0 10px #0ff;} 100%{text-shadow:0 0 20px #0ff,0 0 40px #0ff;} }
+@keyframes glow2 { 0% {text-shadow:0 0 5px #ff3cff,0 0 10px #ff3cff;} 100%{text-shadow:0 0 20px #ff3cff,0 0 40px #ff3cff;} }
+@keyframes glow3 { 0% {text-shadow:0 0 5px #ffcc00,0 0 10px #ffcc00;} 100%{text-shadow:0 0 20px #ffcc00,0 0 40px #ffcc00;} }
+@keyframes glow4 { 0% {text-shadow:0 0 5px #00ff99,0 0 10px #00ff99;} 100%{text-shadow:0 0 20px #00ff99,0 0 40px #00ff99;} }
+@keyframes glow5 { 0% {text-shadow:0 0 5px #ff6600,0 0 10px #ff6600;} 100%{text-shadow:0 0 20px #ff6600,0 0 40px #ff6600;} }
 
 /* Back to Home */
 .back-home {
@@ -38,9 +69,7 @@ header h1 {
   font-weight:bold;
   transition:0.3s;
 }
-.back-home:hover {
-  background:#00ffaa;
-}
+.back-home:hover { background:#00ffaa; }
 
 /* Search Bar */
 .search-bar {
@@ -93,13 +122,16 @@ section{
   transform: translateY(-5px);
 }
 
-/* Neon text classes */
-.tax-type{font-weight:bold;}
-.tax-value{font-weight:bold;}
+/* Neon text classes for Officials */
 .official-name{font-weight:bold;}
 .official-role{font-style:italic;}
-.progress-text{color:#0ff; font-weight:bold;}
-.development-text{color:#ff0; font-weight:bold;}
+
+/* Unique colors for each official */
+.umer{color:#0ff; text-shadow:0 0 10px #0ff;}
+.alex{color:#ff3cff; text-shadow:0 0 10px #ff3cff;}
+.faiq{color:#ffcc00; text-shadow:0 0 10px #ffcc00;}
+.usman{color:#00ff99; text-shadow:0 0 10px #00ff99;}
+.hashir{color:#ff6600; text-shadow:0 0 10px #ff6600;}
 
 /* Animated scroll */
 .scroll {
@@ -117,7 +149,11 @@ section{
 <body>
 
 <header>
-<h1>CRYSTAL SMP Government</h1>
+<h1>
+<span class="crystal">CRYSTAL </span>
+<span class="s">S</span><span class="m">M</span><span class="p">P </span>
+<span class="government">Government</span>
+</h1>
 <a class="back-home" href="index.html">Back to Home</a>
 </header>
 
@@ -126,25 +162,26 @@ section{
 <section class="officials">
 <h2 class="section-title officials-title">Government Officials</h2>
 <div class="scroll">⬇ Scroll Down ⬇</div>
-<div class="card"><p class="official-name">Umer</p><p class="official-role">Leader</p></div>
-<div class="card"><p class="official-name">AlexenderMartin</p><p class="official-role">Judge</p></div>
-<div class="card"><p class="official-name">FaiqPro</p><p class="official-role">Date Changer</p></div>
-<div class="card"><p class="official-name">Usman</p><p class="official-role">Establishment</p></div>
-<div class="card"><p class="official-name">Hashir</p><p class="official-role">Police</p></div>
+<div class="card"><p class="official-name umer">Umer</p><p class="official-role umer">Leader</p></div>
+<div class="card"><p class="official-name alex">AlexenderMartin</p><p class="official-role alex">Judge</p></div>
+<div class="card"><p class="official-name faiq">FaiqPro</p><p class="official-role faiq">Date Changer</p></div>
+<div class="card"><p class="official-name usman">Usman</p><p class="official-role usman">Establishment</p></div>
+<div class="card"><p class="official-name hashir">Hashir</p><p class="official-role hashir">Police</p></div>
 </section>
 
 <section class="taxes">
 <h2 class="section-title taxes-title">Taxes</h2>
-<div class="card"><span class="tax-type" style="color:#ff6600;">Income Tax:</span> <span class="tax-value" style="color:#00ffcc;">15%</span></div>
-<div class="card"><span class="tax-type" style="color:#ccff00;">Property Tax:</span> <span class="tax-value" style="color:#ff00ff;">5%</span></div>
-<div class="card"><span class="tax-type" style="color:#ff00cc;">Business Tax:</span> <span class="tax-value" style="color:#00ff99;">10%</span></div>
+<div class="card"><span class="tax-type" style="color:#00ffff;">Fram AREA Tax:</span> <span class="tax-value" style="color:#ff9900;">3%</span></div>
+<div class="card"><span class="tax-type" style="color:#ff6600;">Income Tax:</span> <span class="tax-value" style="color:#00ffcc;">0%</span></div>
+<div class="card"><span class="tax-type" style="color:#ccff00;">Property Tax:</span> <span class="tax-value" style="color:#ff00ff;">0%</span></div>
+<div class="card"><span class="tax-type" style="color:#ff00cc;">Business Tax:</span> <span class="tax-value" style="color:#00ff99;">0%</span></div>
 <div class="card"><span class="tax-type" style="color:#00ffff;">Nether Portal Tax:</span> <span class="tax-value" style="color:#ff9900;">2%</span></div>
 </section>
 
 <section class="progress">
 <h2 class="section-title progress-title">Progress</h2>
 <div class="card">
-<p class="progress-text">Naye player ne Crystal SMP join karne par 32 Emeralds milege</p>
+<p class="progress-text">A new player will receive 32 emeralds from the government upon joining Crystal SMP</p>
 <p class="progress-text">New Structures Built: 30</p>
 <p class="progress-text">Server Events Held: 5</p>
 </div>
@@ -153,9 +190,11 @@ section{
 <section class="development">
 <h2 class="section-title development-title">Development</h2>
 <div class="card">
-<p class="development-text">New City Project – 50% Complete</p>
-<p class="development-text">Marketplace Expansion – 70% Complete</p>
-<p class="development-text">Resource Hub Upgrade – 100% Complete</p>
+<p class="development-text">Green AREA – 40% Complete</p>
+<p class="development-text"> – Railway 1to4 – 100% Complete</p>
+<p class="development-text">New City Project – 0% Complete</p>
+<p class="development-text">Marketplace Expansion – 0% Complete</p>
+<p class="development-text">Resource Hub Upgrade – 50% Complete</p>
 </div>
 </section>
 
