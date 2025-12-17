@@ -212,6 +212,12 @@ function toggleVoting(state){
 }
 
 function goHome(){
+  // Properly go to home (login/home section)
+  voteCard.classList.add('hidden');
+  leaderboardCard.classList.add('hidden');
+  historyCard.classList.add('hidden');
+  adminCard.classList.add('hidden');
+  loginCard.classList.remove('hidden');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
