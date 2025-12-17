@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Crystal SMP – Jobs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #1a0033, #000814);
+  color:white;
+}
+
+/* Header */
+header{
+  text-align:center;
+  padding:40px 20px;
+}
+
+header h1{
+  font-size:48px;
+  background: linear-gradient(90deg, #8f00ff, #00f0ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:3px;
+}
+
+header p{
+  color:#aaa;
+  font-size:16px;
+}
+
+/* Back button */
+.back-btn{
+  display:inline-block;
+  margin-top:15px;
+  padding:10px 20px;
+  background:#00f0ff;
+  color:#000;
+  border-radius:25px;
+  text-decoration:none;
+  font-weight:bold;
+  box-shadow:0 0 15px #00f0ff;
+}
+
+/* Jobs grid */
+.jobs{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:20px;
+  padding:30px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.job-card{
+  background:rgba(255,255,255,0.05);
+  border-radius:16px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 0 20px rgba(143,0,255,0.3);
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.job-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 30px #8f00ff;
+}
+
+.job-card h3{
+  color:#00f0ff;
+  margin-bottom:10px;
+}
+
+.job-info{
+  max-height:0;
+  overflow:hidden;
+  transition:0.4s ease;
+  color:#ddd;
+}
+
+.job-card.active .job-info{
+  max-height:200px;
+  margin-top:10px;
+}
+
+/* Scroll animation text */
+.scroll-text{
+  text-align:center;
+  margin:40px 0;
+  font-size:22px;
+  color:#8f00ff;
+  animation:float 2s infinite alternate;
+}
+
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(10px);}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>CRYSTAL SMP</h1>
+  <p>Jobs & Careers</p>
+  <a href="index.html" class="back-btn">⬅ Back to Home</a>
+</header>
+
+<div class="scroll-text">⬇ Select a Job ⬇</div>
+
+<section class="jobs">
+
+  <div class="job-card" onclick="toggleJob(this)">
+    <h3>⛏ Miner</h3>
+    <div class="job-info">
+      Earn emeralds by mining ores<br>
+      Diamond, Iron, Gold allowed<br>
+      💰 Salary: Per item based
+    </div>
+  </div>
+
+  <div class="job-card" onclick="toggleJob(this)">
+    <h3>🌾 Farmer</h3>
+    <div class="job-info">
+      Farming crops & animals<br>
+      Wheat, Carrot, Potato<br>
+      💰 Salary: Stable income
+    </div>
+  </div>
+
+  <div class="job-card" onclick="toggleJob(this)">
+    <h3>🏹 Hunter</h3>
+    <div class="job-info">
+      Kill mobs & collect drops<br>
+      Rotten flesh, Bones<br>
+      💰 Salary: Risk based
+    </div>
+  </div>
+
+  <div class="job-card" onclick="toggleJob(this)">
+    <h3>🏗 Builder</h3>
+    <div class="job-info">
+      Build structures & cities<br>
+      Paid by projects<br>
+      💰 Salary: High reward
+    </div>
+  </div>
+
+  <div class="job-card" onclick="toggleJob(this)">
+    <h3>⚔ PvP Fighter</h3>
+    <div class="job-info">
+      Arena battles & wars<br>
+      Protect the server<br>
+      💰 Salary: Match reward
+    </div>
+  </div>
+
+  <div class="job-card" onclick="toggleJob(this)">
+    <h3>📦 Trader</h3>
+    <div class="job-info">
+      Buy & sell items<br>
+      Market based pricing<br>
+      💰 Salary: Profit based
+    </div>
+  </div>
+
+</section>
+
+<script>
+function toggleJob(card){
+  card.classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
