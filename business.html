@@ -114,6 +114,63 @@ section h3{
 <div class="scroll-text">⬇ Explore the Business World ⬇</div>
 
 <!-- Successful Businessman Section -->
+  <!-- Search / Filter & Count Section -->
+<section>
+  <h3>Search & Filter Businesses</h3>
+  
+  <!-- Search Input -->
+  <input type="text" id="searchInput" placeholder="Search by business / owner / type" style="width:100%; padding:10px; border-radius:8px; border:none; margin-bottom:15px; font-size:16px;">
+
+  <!-- Filter Dropdown -->
+  <select id="filterSelect" style="width:100%; padding:10px; border-radius:8px; border:none; font-size:16px; margin-bottom:15px;">
+    <option value="all">Filter: All</option>
+    <option value="open">Open</option>
+    <option value="closed">Closed</option>
+  </select>
+
+  <!-- Counts -->
+  <p id="totalBusiness" style="margin:5px 0; font-weight:bold;">Total Businesses: 4</p>
+  <p id="totalBusinessman" style="margin:5px 0; font-weight:bold;">Total Businessmen: 5</p>
+</section>
+
+<script>
+// Example: Business cards array
+const businessCards = [
+  {name:'ThunderStorm', owner:'Umer', type:'General', status:'open'},
+  {name:'Chicken Flix', owner:'Government', type:'Food', status:'open'},
+  {name:'Beeroot Company', owner:'SenpaiSpider', type:'Food', status:'closed'},
+  {name:'UFC', owner:'Umer', type:'Sport', status:'open'},
+];
+
+// Render counts dynamically
+document.getElementById('totalBusiness').textContent = `Total Businesses: ${businessCards.length}`;
+
+const uniqueOwners = [...new Set(businessCards.map(b => b.owner))];
+document.getElementById('totalBusinessman').textContent = `Total Businessmen: ${uniqueOwners.length}`;
+
+// Search & Filter functionality
+const searchInput = document.getElementById('searchInput');
+const filterSelect = document.getElementById('filterSelect');
+
+searchInput.addEventListener('input', filterBusinesses);
+filterSelect.addEventListener('change', filterBusinesses);
+
+function filterBusinesses(){
+  const searchTerm = searchInput.value.toLowerCase();
+  const filter = filterSelect.value;
+
+  businessCards.forEach(card => {
+    const cardElement = document.querySelector(`.card[data-name="${card.name}"]`);
+    if(!cardElement) return;
+
+    const matchesSearch = card.name.toLowerCase().includes(searchTerm) || card.owner.toLowerCase().includes(searchTerm) || card.type.toLowerCase().includes(searchTerm);
+    const matchesFilter = filter === 'all' || card.status === filter;
+
+    cardElement.style.display = (matchesSearch && matchesFilter) ? 'block' : 'none';
+  });
+}
+</script>
+
 <section>
   <h3>Successful Businessman</h3>
   <div class="leaderboard">
