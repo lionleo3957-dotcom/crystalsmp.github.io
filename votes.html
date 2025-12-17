@@ -6,16 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body{font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#fff;margin:0;padding:0}
-    header{text-align:center;padding:40px;background:linear-gradient(135deg,#00e5ff,#4facfe)}
-    h1{margin:0;color:#000;font-size:36px}
+    header{text-align:center;padding:30px;background:#111a33}
+    h1{margin:0;color:#00e5ff}
     .container{max-width:900px;margin:auto;padding:20px}
-    .card{background:#162044;border-radius:14px;padding:25px;margin-bottom:20px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
-    button{padding:12px 26px;border:none;border-radius:30px;cursor:pointer;font-weight:bold;font-size:15px}
-    .btn-primary{background:linear-gradient(135deg,#00e5ff,#4facfe);color:#000}
-    .btn-home{background:transparent;border:2px solid #00e5ff;color:#00e5ff}
+    .card{background:#162044;border-radius:10px;padding:20px;margin-bottom:20px}
+    button{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;background:#00e5ff;color:#000;font-weight:bold}
     button.red{background:#ff4d4d;color:#fff}
     button.gray{background:#888;color:#000}
-    input{width:100%;padding:12px;border-radius:30px;border:none;margin:10px 0;font-size:15px}
+    .btn-home{background:transparent;border:2px solid #00e5ff;color:#00e5ff}
+    input{width:100%;padding:10px;border-radius:6px;border:none;margin:8px 0}
     .hidden{display:none}
     .center{text-align:center}
     a{color:#00e5ff;cursor:pointer}
@@ -36,7 +35,10 @@
   <h2>🔐 Login</h2>
   <input type="text" id="username" placeholder="Minecraft Username">
   <input type="password" id="password" placeholder="Password">
-  <button class="btn-primary" onclick="login()">Login</button>
+  <div class="center">
+    <button onclick="login()">Login</button>
+    <button class="btn-home" onclick="goHome()">Back to Home</button>
+  </div>
 </div>
 
 <!-- VOTING -->
@@ -59,7 +61,7 @@
   <p id="voteMsg" class="center"></p>
 
   <div class="center">
-    <button class="btn-primary" onclick="logout()">Logout</button>
+    <button class="gray" onclick="logout()">Logout</button>
     <button class="btn-home" onclick="goHome()">Back to Home</button>
   </div>
 </div>
@@ -214,18 +216,17 @@ function toggleVoting(state){
 }
 
 function goHome(){
-  // HOME PAGE ONLY (NO LOGIN)
+  // ONLY GO TO HOME (HEADER), NOT LOGIN
   voteCard.classList.add('hidden');
   leaderboardCard.classList.add('hidden');
   historyCard.classList.add('hidden');
   adminCard.classList.add('hidden');
 
-  // login stays hidden
+  // login stays hidden unless logout
   loginCard.classList.add('hidden');
 
-  // go to top hero section
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
+  // jump to top (CRYSTAL SMP)
+  window.scrollTo(0,0);
 }
 
 // Auto login if session exists
