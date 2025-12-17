@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crystal SMP Government</title>
+<style>
+/* General Body */
+body {
+  margin:0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #0b3d91, #1a73e8);
+  color: #fff;
+}
+
+/* Neon Header */
+header h1 {
+  text-align:center;
+  font-size:3rem;
+  font-family: 'Courier New', monospace;
+  color: #00f0ff;
+  text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+  margin-top:20px;
+}
+
+header p {
+  text-align:center;
+  font-size:1.3rem;
+  margin-bottom:20px;
+  color:#0ff;
+}
+
+/* Back to home button */
+.back-home {
+  display:block;
+  width:150px;
+  margin:10px auto;
+  text-align:center;
+  padding:10px;
+  border-radius:10px;
+  background:#00f0ff;
+  color:#000;
+  font-weight:bold;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.back-home:hover{
+  background:#0ff;
+  color:#000;
+}
+
+/* Section Styles */
+section{
+  padding:30px 20px;
+  max-width:900px;
+  margin:auto;
+  margin-bottom:40px;
+  border-radius:12px;
+}
+
+.section-title{
+  font-family:'Verdana', sans-serif;
+  font-size:2rem;
+  text-align:center;
+  color:#0ff;
+  margin-bottom:15px;
+  text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff;
+}
+
+/* Card styles */
+.card{
+  background: rgba(0,255,255,0.1);
+  padding:15px;
+  margin:10px 0;
+  border-radius:10px;
+  transition:0.3s;
+  cursor:pointer;
+}
+
+.card:hover{
+  background: rgba(0,255,255,0.3);
+  transform: translateY(-5px);
+}
+
+/* Neon fonts different per section */
+.officials p { font-family:'Georgia', serif; font-size:1.1rem; }
+.taxes p { font-family:'Tahoma', sans-serif; font-size:1.1rem; }
+.progress p { font-family:'Lucida Console', monospace; font-size:1.1rem; }
+.development p { font-family:'Courier New', monospace; font-size:1.1rem; }
+
+/* Highlight income tax */
+.income-tax { color:#00ffea; font-weight:bold; font-size:1.1rem; }
+.tax-value { color:#ffea00; font-weight:bold; font-size:1.1rem; }
+
+/* Scroll animation for each section */
+.scroll {
+  text-align:center;
+  animation: bounce 1.5s infinite;
+  font-family:'Arial', sans-serif;
+  margin-bottom:15px;
+  font-size:1.2rem;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>CRYSTAL SMP</h1>
+<p>Government</p>
+<a class="back-home" href="index.html">Back to Home</a>
+</header>
+
+<section class="officials">
+<h2 class="section-title">Government Officials</h2>
+<div class="scroll">⬇ Scroll Down ⬇</div>
+<div class="card"><p><b>Umer</b> - Leader</p></div>
+<div class="card"><p><b>AlexenderMartin</b> - Judge</p></div>
+<div class="card"><p><b>FaiqPro</b> - Date Changer</p></div>
+<div class="card"><p><b>Usman</b> - Establishment</p></div>
+<div class="card"><p><b>Hashir</b> - Police</p></div>
+</section>
+
+<section class="taxes">
+<h2 class="section-title">Taxes</h2>
+<div class="card">
+<p>Taxes Collected: Unknow Emeralds</p>
+<p class="income-tax">Income Tax: <span class="tax-value">0%</span></p>
+<p>Nether Portal Tax: 2%</p>
+<p>Property Tax: 0%</p>
+<p>Business Tax: 0%</p>
+</div>
+</section>
+
+<section class="progress">
+<h2 class="section-title">Progress</h2>
+<div class="card">
+<p>A new player will receive from the government upon joining Crystal SMP <b>32 Emeralds</b> milege</p>
+<p>New Structures Built: 15</p>
+<p>Server Events Held: 1</p>
+</div>
+</section>
+
+<section class="development">
+<h2 class="section-title">Development</h2>
+<div class="card">
+<p>Green Area – 30% Complete</p>
+<p>Railway 1to4  – 100% Complete</p>
+<p>New City Project – 0% Complete</p>
+<p>Marketplace Expansion – 0% Complete</p>
+<p>Resource Hub Upgrade – 50% Complete</p>
+</div>
+</section>
+
+<a class="back-home" href="index.html">Back to Home</a>
+
+</body>
+</html>
