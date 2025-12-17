@@ -78,6 +78,9 @@
 <div class="card hidden" id="adminCard">
   <h2>👑 Admin Panel</h2>
   <button class="red" onclick="resetVotes()">Reset All Votes</button>
+  <button onclick="toggleVoting(true)">Start Voting</button>
+  <button onclick="toggleVoting(false)">Stop Voting</button>
+  <p id="adminMsg"></p>
 </div>
 
 </div>
@@ -88,6 +91,11 @@ const USERS='csmp_users';
 const SESSION='csmp_session';
 const VOTES='csmp_votes';
 const HISTORY='csmp_history';
+const SETTINGS='csmp_settings';
+
+// ADMIN CREDENTIALS (CHANGE THESE)
+const ADMIN_USER='AdminLeo';
+const ADMIN_PASS='Admin@123';
 
 function getData(key,def){return JSON.parse(localStorage.getItem(key))||def}
 function setData(key,val){localStorage.setItem(key,JSON.stringify(val))}
@@ -97,13 +105,19 @@ function login(){
   const p=password.value.trim();
   if(!u||!p){alert('Invalid try again');return}
 
-  let users=getData(USERS,{});
+  // ADMIN LOGIN
+  if(u===ADMIN_USER && p===ADMIN_PASS){
+    setData(SESSION,{user:u,role:'admin'});
+    showVote();
+    return;
+  }
 
+  let users=getData(USERS,{});
   if(users[u] && users[u]!==p){alert('Invalid try again');return}
 
   users[u]=p; // permanent password
   setData(USERS,users);
-  setData(SESSION,{user:u});
+  setData(SESSION,{user:u,role:'voter'});
   showVote();
 }
 
@@ -112,7 +126,12 @@ function showVote(){
   voteCard.classList.remove('hidden');
   leaderboardCard.classList.remove('hidden');
   historyCard.classList.remove('hidden');
-  adminCard.classList.remove('hidden');
+
+  const session=getData(SESSION,null);
+  if(session && session.role==='admin'){
+    adminCard.classList.remove('hidden');
+  }
+
   loadLeaderboard();
   loadHistory();
 }
@@ -126,10 +145,16 @@ function castVote(candidate){
   const session=getData(SESSION,null);
   if(!session){alert('Login required');return}
 
+  const settings=getData(SETTINGS,{voting:true});
+  if(!settings.voting && session.role!=='admin'){
+    voteMsg.innerText='⛔ Voting is stopped by Admin';
+    return;
+  }
+
   let votes=getData(VOTES,{});
   const month=new Date().getMonth();
 
-  if(votes[session.user] && votes[session.user].month===month){
+  if(session.role!=='admin' && votes[session.user] && votes[session.user].month===month){
     voteMsg.innerText='❌ You already voted this month';
     return;
   }
@@ -169,12 +194,21 @@ function loadHistory(){
 }
 
 function resetVotes(){
+  const session=getData(SESSION,null);
+  if(!session || session.role!=='admin'){
+    alert('Not allowed');return;
+  }
   if(confirm('Are you sure?')){
     localStorage.removeItem(VOTES);
     localStorage.removeItem(HISTORY);
     loadLeaderboard();
     loadHistory();
   }
+}
+
+function toggleVoting(state){
+  setData(SETTINGS,{voting:state});
+  adminMsg.innerText= state ? '✅ Voting Started' : '⛔ Voting Stopped';
 }
 
 function goHome(){
