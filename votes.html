@@ -13,7 +13,6 @@
     button{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;background:#00e5ff;color:#000;font-weight:bold}
     button.red{background:#ff4d4d;color:#fff}
     button.gray{background:#888;color:#000}
-    .btn-home{background:transparent;border:2px solid #00e5ff;color:#00e5ff}
     input{width:100%;padding:10px;border-radius:6px;border:none;margin:8px 0}
     .hidden{display:none}
     .center{text-align:center}
@@ -31,14 +30,11 @@
 <div class="container">
 
 <!-- LOGIN -->
-<div class="card hidden" id="loginCard">
+<div class="card" id="loginCard">
   <h2>🔐 Login</h2>
   <input type="text" id="username" placeholder="Minecraft Username">
   <input type="password" id="password" placeholder="Password">
-  <div class="center">
-    <button onclick="login()">Login</button>
-    <button class="btn-home" onclick="goHome()">Back to Home</button>
-  </div>
+  <button onclick="login()">Login</button>
 </div>
 
 <!-- VOTING -->
@@ -62,7 +58,7 @@
 
   <div class="center">
     <button class="gray" onclick="logout()">Logout</button>
-    <button class="btn-home" onclick="goHome()">Back to Home</button>
+    <button class="gray" onclick="goHome()">Back to Home</button>
   </div>
 </div>
 
@@ -82,14 +78,8 @@
 <div class="card hidden" id="adminCard">
   <h2>👑 Admin Panel</h2>
   <button class="red" onclick="resetVotes()">Reset All Votes</button>
-  <hr>
-  <h3>✏️ Change User Vote</h3>
-  <input type="text" id="editUser" placeholder="Username">
-  <select id="editCandidate">
-    <option value="Umer">Umer (MPI)</option>
-    <option value="Usman">Usman (UTI)</option>
-  </select>
-  <button onclick="adminChangeVote()">Apply Vote</button>
+  <button onclick="toggleVoting(true)">Start Voting</button>
+  <button onclick="toggleVoting(false)">Stop Voting</button>
   <p id="adminMsg"></p>
 </div>
 
@@ -205,7 +195,9 @@ function loadHistory(){
 
 function resetVotes(){
   const session=getData(SESSION,null);
-  if(!session || session.role!=='admin'){alert('Not allowed');return}
+  if(!session || session.role!=='admin'){
+    alert('Not allowed');return;
+  }
   if(confirm('Are you sure?')){
     localStorage.removeItem(VOTES);
     localStorage.removeItem(HISTORY);
@@ -214,45 +206,13 @@ function resetVotes(){
   }
 }
 
-function adminChangeVote(){
-  const session=getData(SESSION,null);
-  if(!session || session.role!=='admin'){alert('Not allowed');return}
-
-  const user=document.getElementById('editUser').value.trim();
-  const candidate=document.getElementById('editCandidate').value;
-  if(!user){adminMsg.innerText='Enter username';return}
-
-  let votes=getData(VOTES,{});
-  votes[user]={candidate,month:new Date().getMonth()};
-  setData(VOTES,votes);
-
-  let hist=getData(HISTORY,[]);
-  hist.push({user:user,candidate:candidate,date:new Date().toLocaleString(),editedBy:'ADMIN'});
-  setData(HISTORY,hist);
-
-  adminMsg.innerText='✅ Vote updated for '+user;
-  loadLeaderboard();
-  loadHistory();
-}
-
-
 function toggleVoting(state){
   setData(SETTINGS,{voting:state});
   adminMsg.innerText= state ? '✅ Voting Started' : '⛔ Voting Stopped';
 }
 
 function goHome(){
-  // ONLY GO TO HOME (HEADER), NOT LOGIN
-  voteCard.classList.add('hidden');
-  leaderboardCard.classList.add('hidden');
-  historyCard.classList.add('hidden');
-  adminCard.classList.add('hidden');
-
-  // login stays hidden unless logout
-  loginCard.classList.add('hidden');
-
-  // jump to top (CRYSTAL SMP)
-  window.scrollTo(0,0);
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 // Auto login if session exists
