@@ -2,167 +2,126 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Crystal SMP Registration</title>
+<title>Crystal SMP | Registration</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  background:radial-gradient(circle at top,#1a002a,#05000d);
   color:#fff;
 }
-
-h1{
-  text-align:center;
-  margin-top:30px;
-  font-size:40px;
+.hidden{display:none}
+.container{max-width:900px;margin:auto;padding:30px}
+h1{text-align:center;color:#39ffea}
+.card{
+  background:rgba(255,255,255,0.08);
+  padding:20px;
+  border-radius:14px;
+  margin-bottom:20px;
 }
-
-h1 span:nth-child(1){color:#00ffe1}
-h1 span:nth-child(2){color:#ffea00}
-h1 span:nth-child(3){color:#ff00c8}
-
-.container{
-  max-width:900px;
-  margin:30px auto;
-  background:#111;
-  border-radius:15px;
-  padding:30px;
-  box-shadow:0 0 25px rgba(0,255,255,0.3);
-}
-
 input,textarea,button{
   width:100%;
-  padding:12px;
+  padding:10px;
   margin:8px 0;
   border-radius:8px;
   border:none;
-  font-size:16px;
 }
-
-input,textarea{
-  background:#1c1c1c;
-  color:#fff;
-}
-
 button{
-  background:#00ffd5;
+  background:#39ff14;
   font-weight:bold;
   cursor:pointer;
 }
-
-button:hover{opacity:0.85}
-
-.section{
-  margin-top:40px;
-}
-
-.hidden{display:none}
-
-.card{
-  background:#1b1b1b;
+button.red{background:#ff3333}
+button.blue{background:#00eaff}
+.player-card{
+  border:1px solid rgba(255,255,255,0.2);
   padding:15px;
   border-radius:10px;
   margin-bottom:15px;
 }
-
-.status-pending{color:orange}
-.status-approved{color:#39ff14}
-.status-rejected{color:red}
-
-.small{font-size:14px;color:#aaa}
 </style>
 </head>
 
 <body>
-
-<h1>
-  <span>CRY</span><span>STA</span><span>L SMP</span>
-</h1>
-
 <div class="container">
 
-<!-- ADMIN STRUCTURE (VISIBLE TO ALL) -->
-<div class="card">
-<h3>👑 Government / Admin Structure</h3>
-<p>Leader: Umer</p>
-<p>Judge: Alexendermartin</p>
-<p>Police: Hashir</p>
+<h1>CRYSTAL SMP</h1>
+
+<!-- LOGIN -->
+<div id="loginBox" class="card">
+  <h2>Login</h2>
+  <input id="loginUser" placeholder="Minecraft Username">
+  <input id="loginPass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
 </div>
 
-<!-- ADMIN LOGIN -->
-<div id="adminLogin" class="section">
-<h3>🔐 Admin Login</h3>
-<input id="adminUser" placeholder="Minecraft Username">
-<input id="adminPass" type="password" placeholder="Password">
-<button onclick="adminLogin()">Login as Admin</button>
-</div>
-
-<!-- PLAYER REGISTRATION -->
-<div id="playerRegister" class="section">
-<h3>🧾 Player Registration</h3>
-
-<input id="email" placeholder="Email Address">
-<input id="emailPass" type="password" placeholder="Email Password">
-
-<input id="mcUser" placeholder="Minecraft Username">
-<input id="mcPass" type="password" placeholder="Minecraft Password">
-
-<input id="dob" type="date">
-<input id="age" type="number" placeholder="Age">
-
-<textarea id="motive" placeholder="What will you do on Crystal SMP?"></textarea>
-
-<p class="small">Registration Fees: 0 Rs</p>
-
-<button onclick="registerPlayer()">Submit Registration</button>
+<!-- REGISTRATION -->
+<div id="registerBox" class="card hidden">
+  <h2>Player Registration</h2>
+  <input id="email" placeholder="Email">
+  <input id="emailPass" type="password" placeholder="Email Password">
+  <input id="mcUser" placeholder="Minecraft Username" readonly>
+  <input id="mcPass" type="password" placeholder="Minecraft Password" readonly>
+  <input id="dob" type="date">
+  <input id="age" type="number" placeholder="Age">
+  <textarea id="motive" placeholder="Why you want to join Crystal SMP?"></textarea>
+  <p>Status: <b style="color:orange">Pending</b></p>
+  <p>⏳ Approval Time: 1 Day</p>
+  <button onclick="submitForm()">Submit Registration</button>
 </div>
 
 <!-- ADMIN PANEL -->
-<div id="adminPanel" class="section hidden">
-<h3>📋 Admin Panel – Registrations</h3>
-<div id="list"></div>
-<button onclick="logout()">Logout</button>
+<div id="adminPanel" class="card hidden">
+  <h2>👑 Admin Panel</h2>
+  <div id="adminList"></div>
+  <button class="red" onclick="logout()">Logout</button>
 </div>
 
 </div>
 
 <script>
-const ADMIN_USER = "AdminUmer";
-const ADMIN_PASS = "crystal123";
+const ADMIN_USER="AdminUmer";
+const ADMIN_PASS="crystal123";
+const DISCORD_LINK="https://discord.gg/crystalsmp";
 
-let regs = JSON.parse(localStorage.getItem("registrations")) || [];
+let users=JSON.parse(localStorage.getItem("users"))||[];
 
-function save(){
-  localStorage.setItem("registrations",JSON.stringify(regs));
-}
+function save(){localStorage.setItem("users",JSON.stringify(users));}
 
-function adminLogin(){
-  const u = adminUser.value;
-  const p = adminPass.value;
+function login(){
+  const u=loginUser.value.trim();
+  const p=loginPass.value.trim();
+
+  if(!u||!p)return alert("Fill all fields");
 
   if(u===ADMIN_USER && p===ADMIN_PASS){
-    adminLoginBox();
-  }else{
-    alert("Invalid Admin Login");
-  }
-}
-
-function adminLoginBox(){
-  adminLogin.classList.add("hidden");
-  playerRegister.classList.add("hidden");
-  adminPanel.classList.remove("hidden");
-  render();
-}
-
-function registerPlayer(){
-  if(!mcUser.value || !mcPass.value){
-    alert("Minecraft username & password required");
+    loginBox.classList.add("hidden");
+    adminPanel.classList.remove("hidden");
+    renderAdmin();
     return;
   }
 
-  regs.push({
+  let user=users.find(x=>x.mcUser===u);
+
+  if(user){
+    if(user.mcPass!==p)return alert("Wrong password");
+    if(user.status==="Approved"){
+      alert("✅ Approved!\nDiscord: "+DISCORD_LINK);
+    }else{
+      alert("⏳ Your request is pending approval");
+    }
+  }else{
+    mcUser.value=u;
+    mcPass.value=p;
+    loginBox.classList.add("hidden");
+    registerBox.classList.remove("hidden");
+  }
+}
+
+function submitForm(){
+  users.push({
     email:email.value,
     emailPass:emailPass.value,
     mcUser:mcUser.value,
@@ -173,42 +132,43 @@ function registerPlayer(){
     status:"Pending",
     date:Date.now()
   });
-
   save();
-  alert("Registration submitted. Waiting for approval.");
+  alert("Registration submitted. Wait for admin approval.");
   location.reload();
 }
 
-function render(){
-  list.innerHTML="";
-  regs.forEach((r,i)=>{
-    list.innerHTML+=`
-    <div class="card">
-      <b>${r.mcUser}</b><br>
-      Status: <span class="status-${r.status.toLowerCase()}">${r.status}</span><br>
-      <button onclick="approve(${i})">Approve</button>
-      <button onclick="reject(${i})">Reject</button>
-      <button onclick="del(${i})">Delete</button>
+function renderAdmin(){
+  adminList.innerHTML="";
+  users.forEach((u,i)=>{
+    adminList.innerHTML+=`
+    <div class="player-card">
+      <b>${u.mcUser}</b> - <span style="color:${u.status==="Approved"?"#39ff14":"orange"}">${u.status}</span>
+      <details>
+        <summary>View Form</summary>
+        Email: ${u.email}<br>
+        Email Pass: ${u.emailPass}<br>
+        MC Pass: ${u.mcPass}<br>
+        DOB: ${u.dob}<br>
+        Age: ${u.age}<br>
+        Motive: ${u.motive}
+      </details>
+      <button class="blue" onclick="approve(${i})">Accept</button>
+      <button class="red" onclick="reject(${i})">Reject</button>
     </div>`;
   });
 }
 
 function approve(i){
-  regs[i].status="Approved";
-  save();render();
+  users[i].status="Approved";
+  save();renderAdmin();
 }
-function reject(i){
-  regs[i].status="Rejected";
-  save();render();
-}
-function del(i){
-  regs.splice(i,1);
-  save();render();
-}
-function logout(){
-  location.reload();
-}
-</script>
 
+function reject(i){
+  users[i].status="Rejected";
+  save();renderAdmin();
+}
+
+function logout(){location.reload();}
+</script>
 </body>
 </html>
