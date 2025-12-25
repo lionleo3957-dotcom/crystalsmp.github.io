@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Crystal SMP Registration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:#fff;
+}
+
+h1{
+  text-align:center;
+  margin-top:30px;
+  font-size:40px;
+}
+
+h1 span:nth-child(1){color:#00ffe1}
+h1 span:nth-child(2){color:#ffea00}
+h1 span:nth-child(3){color:#ff00c8}
+
+.container{
+  max-width:900px;
+  margin:30px auto;
+  background:#111;
+  border-radius:15px;
+  padding:30px;
+  box-shadow:0 0 25px rgba(0,255,255,0.3);
+}
+
+input,textarea,button{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:none;
+  font-size:16px;
+}
+
+input,textarea{
+  background:#1c1c1c;
+  color:#fff;
+}
+
+button{
+  background:#00ffd5;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{opacity:0.85}
+
+.section{
+  margin-top:40px;
+}
+
+.hidden{display:none}
+
+.card{
+  background:#1b1b1b;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+.status-pending{color:orange}
+.status-approved{color:#39ff14}
+.status-rejected{color:red}
+
+.small{font-size:14px;color:#aaa}
+</style>
+</head>
+
+<body>
+
+<h1>
+  <span>CRY</span><span>STA</span><span>L SMP</span>
+</h1>
+
+<div class="container">
+
+<!-- ADMIN STRUCTURE (VISIBLE TO ALL) -->
+<div class="card">
+<h3>👑 Government / Admin Structure</h3>
+<p>Leader: Umer</p>
+<p>Judge: Alexendermartin</p>
+<p>Police: Hashir</p>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="adminLogin" class="section">
+<h3>🔐 Admin Login</h3>
+<input id="adminUser" placeholder="Minecraft Username">
+<input id="adminPass" type="password" placeholder="Password">
+<button onclick="adminLogin()">Login as Admin</button>
+</div>
+
+<!-- PLAYER REGISTRATION -->
+<div id="playerRegister" class="section">
+<h3>🧾 Player Registration</h3>
+
+<input id="email" placeholder="Email Address">
+<input id="emailPass" type="password" placeholder="Email Password">
+
+<input id="mcUser" placeholder="Minecraft Username">
+<input id="mcPass" type="password" placeholder="Minecraft Password">
+
+<input id="dob" type="date">
+<input id="age" type="number" placeholder="Age">
+
+<textarea id="motive" placeholder="What will you do on Crystal SMP?"></textarea>
+
+<p class="small">Registration Fees: 0 Rs</p>
+
+<button onclick="registerPlayer()">Submit Registration</button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="section hidden">
+<h3>📋 Admin Panel – Registrations</h3>
+<div id="list"></div>
+<button onclick="logout()">Logout</button>
+</div>
+
+</div>
+
+<script>
+const ADMIN_USER = "AdminUmer";
+const ADMIN_PASS = "crystal123";
+
+let regs = JSON.parse(localStorage.getItem("registrations")) || [];
+
+function save(){
+  localStorage.setItem("registrations",JSON.stringify(regs));
+}
+
+function adminLogin(){
+  const u = adminUser.value;
+  const p = adminPass.value;
+
+  if(u===ADMIN_USER && p===ADMIN_PASS){
+    adminLoginBox();
+  }else{
+    alert("Invalid Admin Login");
+  }
+}
+
+function adminLoginBox(){
+  adminLogin.classList.add("hidden");
+  playerRegister.classList.add("hidden");
+  adminPanel.classList.remove("hidden");
+  render();
+}
+
+function registerPlayer(){
+  if(!mcUser.value || !mcPass.value){
+    alert("Minecraft username & password required");
+    return;
+  }
+
+  regs.push({
+    email:email.value,
+    emailPass:emailPass.value,
+    mcUser:mcUser.value,
+    mcPass:mcPass.value,
+    dob:dob.value,
+    age:age.value,
+    motive:motive.value,
+    status:"Pending",
+    date:Date.now()
+  });
+
+  save();
+  alert("Registration submitted. Waiting for approval.");
+  location.reload();
+}
+
+function render(){
+  list.innerHTML="";
+  regs.forEach((r,i)=>{
+    list.innerHTML+=`
+    <div class="card">
+      <b>${r.mcUser}</b><br>
+      Status: <span class="status-${r.status.toLowerCase()}">${r.status}</span><br>
+      <button onclick="approve(${i})">Approve</button>
+      <button onclick="reject(${i})">Reject</button>
+      <button onclick="del(${i})">Delete</button>
+    </div>`;
+  });
+}
+
+function approve(i){
+  regs[i].status="Approved";
+  save();render();
+}
+function reject(i){
+  regs[i].status="Rejected";
+  save();render();
+}
+function del(i){
+  regs.splice(i,1);
+  save();render();
+}
+function logout(){
+  location.reload();
+}
+</script>
+
+</body>
+</html>
