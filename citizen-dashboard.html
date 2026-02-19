@@ -1,39 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Citizen Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Dashboard | Crystal SMP</title>
 <style>
-body{background:#111;color:white;font-family:Arial}
-.card{border:1px solid #444;margin:10px;padding:10px;border-radius:8px;cursor:pointer}
-.card:hover{background:#222}
+body { font-family: Arial, sans-serif; background:#111; color:#fff; }
+header { text-align:center; padding:20px; background: #222; font-size:1.8rem; color:#FFD700; }
+.container { max-width:900px; margin:20px auto; }
+.card { background: rgba(255,255,255,0.1); padding:15px; margin:10px 0; border-radius:10px; cursor:pointer; transition:0.3s; }
+.card:hover { background: rgba(255,255,255,0.2); }
+button { padding:8px 12px; margin-top:10px; border:none; border-radius:6px; background:#39FF14; font-weight:bold; cursor:pointer; }
 </style>
 </head>
 <body>
-
-<h1>Crystal SMP Data Base</h1>
-<div id="list"></div>
+<header>Crystal SMP Citizen Dashboard</header>
+<div class="container" id="dashboardContainer"></div>
 
 <script>
+const role = localStorage.getItem('loggedInRole');
+if(!role) { alert("Login required"); window.location.href='citizen-login.html'; }
 
-const role=localStorage.getItem("role");
-if(!role){ window.location.href="citizen-login.html"; }
+const container = document.getElementById('dashboardContainer');
+const players = JSON.parse(localStorage.getItem('players')||'[]');
 
-const users=JSON.parse(localStorage.getItem("users"))||[];
+if(role==='player'){
+  const username = localStorage.getItem('loggedInUser');
+  const player = players.find(p=>p.username===username);
+  if(player){
+    container.innerHTML = `<div class="card">Welcome ${player.username} | ID: ${player.id}</div>
+      <button onclick="window.location.href='citizen-profile.html?user=${player.username}'">View Profile</button>`;
+  }
+} else if(role==='admin' || role==='police'){
+  if(players.length===0){
+    container.innerHTML = "<p>No registered players yet.</p>";
+  } else {
+    players.forEach(p=>{
+      const card = document.createElement('div');
+      card.className='card';
+      card.innerHTML=`${p.username} | ID: ${p.id} <button onclick="viewProfile('${p.username}')">View Profile</button>`;
+      container.appendChild(card);
+    });
+  }
+}
 
-const list=document.getElementById("list");
-
-users.forEach(u=>{
-  list.innerHTML+=`
-  <div class="card" onclick="viewProfile('${u.crystalID}')">
-    <b>${u.mcUser}</b> - ${u.crystalID}
-  </div>`;
-});
-
-function viewProfile(id){
-  localStorage.setItem("viewID",id);
-  window.location.href="citizen-profile.html";
+function viewProfile(username){
+  window.location.href='citizen-profile.html?user='+username;
 }
 </script>
-
 </body>
 </html>
