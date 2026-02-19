@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add New Citizen | Crystal SMP</title>
+<style>
+body{font-family:Arial;background:#111;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;}
+form{background:rgba(0,0,0,0.7);padding:20px;border-radius:12px;width:350px;}
+input,textarea{width:100%;padding:8px;margin:6px 0;border-radius:6px;border:none;}
+button{width:100%;padding:10px;background:#39FF14;color:#000;font-weight:bold;border:none;border-radius:6px;cursor:pointer;}
+h2{text-align:center;color:#FFD700;}
+</style>
+</head>
+<body>
+<form id="addForm">
+<h2>Add New Citizen Profile</h2>
+<input type="text" placeholder="Username" id="username" required>
+<input type="text" placeholder="Minecraft Username" id="minecraftUsername" required>
+<input type="text" placeholder="ID" id="id" required>
+<input type="email" placeholder="Email" id="email" required>
+<input type="text" placeholder="Date of Birth" id="dob" required>
+<input type="number" placeholder="Age" id="age" required>
+<input type="text" placeholder="Motive" id="motive" required>
+<input type="text" placeholder="Status" id="status" required>
+<input type="text" placeholder="Property" id="property">
+<input type="text" placeholder="Business" id="business">
+<input type="text" placeholder="Companies" id="companies">
+<input type="text" placeholder="Networth" id="networth">
+<input type="text" placeholder="Other Minecraft Username" id="otherUsername">
+<button type="submit">Save Profile</button>
+</form>
+
+<script>
+const role = localStorage.getItem('loggedInRole');
+if(role!=='admin'){ alert("Admin only!"); window.location.href='citizen-login.html'; }
+
+document.getElementById('addForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const players = JSON.parse(localStorage.getItem('players')||'[]');
+
+  // Check if ID already exists
+  const id = document.getElementById('id').value.trim();
+  if(players.find(p=>p.id===id)){
+    alert("This ID already exists! Choose another.");
+    return;
+  }
+
+  const newPlayer = {
+    id,
+    username: document.getElementById('username').value,
+    minecraftUsername: document.getElementById('minecraftUsername').value,
+    email: document.getElementById('email').value,
+    dob: document.getElementById('dob').value,
+    age: document.getElementById('age').value,
+    motive: document.getElementById('motive').value,
+    status: document.getElementById('status').value,
+    property: document.getElementById('property').value,
+    business: document.getElementById('business').value,
+    companies: document.getElementById('companies').value,
+    networth: document.getElementById('networth').value,
+    otherUsername: document.getElementById('otherUsername').value
+  };
+  players.push(newPlayer);
+  localStorage.setItem('players', JSON.stringify(players));
+  alert("Profile Saved Successfully!");
+  this.reset();
+});
+</script>
+</body>
+</html>
