@@ -3,42 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Citizen Profile | Crystal SMP</title>
+<title>Citizen Profile</title>
 <style>
-body { font-family: Arial, sans-serif; background:#0c0c0c; color:#fff; padding:20px; }
-h2 { color:#FFD700; text-align:center; }
-.profile { background: rgba(255,255,255,0.05); padding:20px; border-radius:10px; max-width:600px; margin:20px auto; }
-span.label { color:#39FF14; font-weight:bold; }
+body{ font-family:Arial,sans-serif; background:linear-gradient(135deg,#ff00ff,#00ffff,#ff9900); color:#fff; margin:0; padding:0;}
+header{padding:20px;text-align:center;}
+.profile-box{background:rgba(0,0,0,0.5); padding:20px; max-width:600px; margin:20px auto; border-radius:12px;}
+.profile-box h2{margin-top:0;}
+button{padding:10px; border:none; border-radius:6px; cursor:pointer; background:#39ff14; font-weight:bold; margin-top:10px;}
 </style>
 </head>
 <body>
-<h2>Crystal SMP Data Base</h2>
-<div class="profile" id="profileContainer"></div>
+<header>
+<h1>Crystal SMP Citizen Profile</h1>
+</header>
+
+<div class="profile-box" id="profile">
+</div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const userParam = params.get('user');
-const players = JSON.parse(localStorage.getItem('players')||'[]');
-const profileContainer = document.getElementById('profileContainer');
+// Load profile info from localStorage (demo)
+const role = localStorage.getItem('role');
+const user = localStorage.getItem('user');
+const citizens = JSON.parse(localStorage.getItem('citizens')||'[]');
+const profileDiv = document.getElementById('profile');
 
-const player = players.find(p=>p.username===userParam);
-if(player){
-  profileContainer.innerHTML=`
-    <p><span class="label">Username:</span> ${player.username}</p>
-    <p><span class="label">Minecraft Username:</span> ${player.minecraftUsername}</p>
-    <p><span class="label">Email:</span> ${player.email}</p>
-    <p><span class="label">Date of Birth:</span> ${player.dob}</p>
-    <p><span class="label">Age:</span> ${player.age}</p>
-    <p><span class="label">Motive:</span> ${player.motive}</p>
-    <p><span class="label">Status:</span> ${player.status}</p>
-    <p><span class="label">Property:</span> ${player.property}</p>
-    <p><span class="label">Business:</span> ${player.business}</p>
-    <p><span class="label">Companies:</span> ${player.companies}</p>
-    <p><span class="label">Networth:</span> ${player.networth}</p>
-    <p><span class="label">Other Minecraft Username:</span> ${player.otherUsername}</p>
+let citizen;
+if(role==='player'){
+  citizen = citizens.find(c=>c.username===user);
+} else if(role==='admin' || role==='police'){
+  citizen = citizens[0]; // demo: show first citizen
+}
+
+if(citizen){
+  profileDiv.innerHTML = `
+    <h2>${citizen.username} (${citizen.id})</h2>
+    <p>Email: ${citizen.email}</p>
+    <p>Date of Birth: ${citizen.dob}</p>
+    <p>Age: ${citizen.age}</p>
+    <p>Motive: ${citizen.motive}</p>
+    <p>Status: ${citizen.status}</p>
+    ${role==='admin'?'<button onclick="editProfile()">Edit Profile</button>':''}
   `;
-}else{
-  profileContainer.innerHTML="<p>Player not found!</p>";
+} else {
+  profileDiv.innerHTML = '<p>No profile data available</p>';
+}
+
+function editProfile(){
+  alert('Here admin can add new headings and edit profile (demo placeholder)');
 }
 </script>
 </body>
