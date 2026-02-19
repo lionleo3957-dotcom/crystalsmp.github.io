@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Citizen Information Login</title>
+<style>
+body{background:#111;color:white;text-align:center;font-family:Arial}
+input{padding:8px;margin:5px;border-radius:5px;border:none}
+button{padding:8px 15px;border:none;border-radius:5px;background:#00bfff;color:white;cursor:pointer}
+</style>
+</head>
+<body>
+
+<h1>Citizen Information Access</h1>
+
+<input type="text" id="username" placeholder="Username">
+<br>
+<input type="password" id="password" placeholder="Password">
+<br>
+<button onclick="login()">Login</button>
+
+<script>
+
+if(!localStorage.getItem("adminAccount")){
+  localStorage.setItem("adminAccount",JSON.stringify({username:"admin",password:"admin123"}));
+}
+
+if(!localStorage.getItem("policeAccount")){
+  localStorage.setItem("policeAccount",JSON.stringify({username:"police",password:"police123"}));
+}
+
+function login(){
+  const u=document.getElementById("username").value;
+  const p=document.getElementById("password").value;
+
+  const admin=JSON.parse(localStorage.getItem("adminAccount"));
+  const police=JSON.parse(localStorage.getItem("policeAccount"));
+
+  if(u===admin.username && p===admin.password){
+    localStorage.setItem("role","admin");
+    window.location.href="citizen-dashboard.html";
+    return;
+  }
+
+  if(u===police.username && p===police.password){
+    localStorage.setItem("role","police");
+    window.location.href="citizen-dashboard.html";
+    return;
+  }
+
+  alert("Access Denied");
+}
+</script>
+
+</body>
+</html>
