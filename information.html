@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Crystal SMP Information Portal</title>
+<style>
+body{font-family:Arial;background:#111;color:white;text-align:center}
+.section{border:1px solid #555;margin:20px;padding:20px;border-radius:10px}
+input{padding:8px;margin:5px;border-radius:5px;border:none}
+button{padding:8px 15px;border:none;border-radius:5px;background:#00bfff;color:white;cursor:pointer}
+button:hover{background:#009acd}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<h1>Crystal SMP Government Portal</h1>
+
+<!-- ================= PERSONAL INFORMATION ================= -->
+
+<div class="section">
+<h2>Personal Information (Players)</h2>
+
+<input type="text" id="playerName" placeholder="Minecraft Username">
+<br>
+<input type="text" id="playerID" placeholder="Crystal SMP ID">
+<br>
+<button onclick="checkPersonal()">View My Profile</button>
+
+<div id="personalResult"></div>
+</div>
+
+<!-- ================= CITIZEN INFORMATION ================= -->
+
+<div class="section">
+<h2>Citizen Information (Admin / Police Only)</h2>
+
+<input type="text" id="roleUser" placeholder="Username (admin / police)">
+<br>
+<input type="password" id="rolePass" placeholder="Password">
+<br>
+<button onclick="loginRole()">Access Citizen Database</button>
+
+<div id="citizenSection" class="hidden">
+<h3>Citizen List</h3>
+<div id="citizenList"></div>
+</div>
+
+</div>
+
+<script>
+
+// ================= PERSONAL INFO FUNCTION =================
+
+function checkPersonal(){
+  const name=document.getElementById("playerName").value;
+  const id=document.getElementById("playerID").value;
+
+  const users=JSON.parse(localStorage.getItem("users"))||[];
+
+  const found=users.find(u=>u.mcUser===name && u.crystalID===id);
+
+  if(!found){
+    document.getElementById("personalResult").innerHTML="<p style='color:red'>Invalid ID or Username</p>";
+    return;
+  }
+
+  document.getElementById("personalResult").innerHTML=`
+  <h3>${found.mcUser}</h3>
+  <p><b>ID:</b> ${found.crystalID}</p>
+  <p><b>Status:</b> ${found.status}</p>
+  <p><b>Role:</b> ${found.role || "Citizen"}</p>
+  <p><b>Total Cases:</b> ${found.cases ? found.cases.length : 0}</p>
+  `;
+}
+
+// ================= ADMIN + POLICE DEFAULT SETUP =================
+
+if(!localStorage.getItem("adminAccount")){
+  localStorage.setItem("adminAccount", JSON.stringify({
+    username:"admin",
+    password:"admin123"
+  }));
+}
+
+if(!localStorage.getItem("policeAccount")){
+  localStorage.setItem("policeAccount", JSON.stringify({
+    username:"police",
+    password:"police123"
+  }));
+}
+
+// ================= ROLE LOGIN =================
+
+function loginRole(){
+  const user=document.getElementById("roleUser").value;
+  const pass=document.getElementById("rolePass").value;
+
+  const admin=JSON.parse(localStorage.getItem("adminAccount"));
+  const police=JSON.parse(localStorage.getItem("policeAccount"));
+
+  if(user===admin.username && pass===admin.password){
+    loadCitizens("admin");
+    return;
+  }
+
+  if(user===police.username && pass===police.password){
+    loadCitizens("police");
+    return;
+  }
+
+  alert("Access Denied");
+}
+
+// ================= LOAD CITIZENS =================
+
+function loadCitizens(role){
+  document.getElementById("citizenSection").classList.remove("hidden");
+
+  const users=JSON.parse(localStorage.getItem("users"))||[];
+  const approved=users.filter(u=>u.status==="Approved");
+
+  const box=document.getElementById("citizenList");
+  box.innerHTML="";
+
+  approved.forEach((u,index)=>{
+    box.innerHTML+=`
+    <div style="border:1px solid #999;padding:10px;margin:10px;border-radius:5px;">
+    <b>${u.crystalID}</b> - ${u.mcUser}
+    <br>Status: ${u.status}
+    <br>Cases: ${u.cases ? u.cases.length : 0}
+    ${role==="admin" ? `
+    <br>
+    <button onclick="addCase('${u.crystalID}')">Add Case</button>
+    <button onclick="deleteCitizen(${index})">Delete</button>
+    ` : ``}
+    </div>
+    `;
+  });
+}
+
+// ================= ADMIN FUNCTIONS =================
+
+function addCase(id){
+  const users=JSON.parse(localStorage.getItem("users"));
+  const user=users.find(u=>u.crystalID===id);
+
+  const caseText=prompt("Enter Case Detail:");
+  if(caseText){
+    if(!user.cases){ user.cases=[]; }
+    user.cases.push({
+      detail:caseText,
+      date:new Date()
+    });
+  }
+
+  localStorage.setItem("users",JSON.stringify(users));
+  loadCitizens("admin");
+}
+
+function deleteCitizen(index){
+  const users=JSON.parse(localStorage.getItem("users"));
+  users.splice(index,1);
+  localStorage.setItem("users",JSON.stringify(users));
+  loadCitizens("admin");
+}
+
+</script>
+
+</body>
+</html>
