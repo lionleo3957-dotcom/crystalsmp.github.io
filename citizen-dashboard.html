@@ -1,66 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Citizen Dashboard | Crystal SMP</title>
-<style>
-body { font-family: Arial, sans-serif; background:#111; color:#fff; }
-header { text-align:center; padding:20px; background: #222; font-size:1.8rem; color:#FFD700; }
-.container { max-width:900px; margin:20px auto; }
-.card { background: rgba(255,255,255,0.1); padding:15px; margin:10px 0; border-radius:10px; cursor:pointer; transition:0.3s; }
-.card:hover { background: rgba(255,255,255,0.2); }
-button { padding:8px 12px; margin-top:10px; border:none; border-radius:6px; background:#39FF14; font-weight:bold; cursor:pointer; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Dashboard | Crystal SMP Admin</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #00FFE0;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 0;
+      font-size: 1rem;
+      background: #FF00FF;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #FF69B4;
+    }
+
+    #citizenList {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .citizen-card {
+      background: rgba(255,255,255,0.08);
+      padding: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .citizen-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .profile-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.95);
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      color: #fff;
+      z-index: 100;
+    }
+
+    .profile-popup h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #39FF14;
+    }
+
+    .profile-popup p {
+      margin: 5px 0;
+    }
+
+    .close-btn {
+      display: block;
+      margin: 15px auto 0 auto;
+      background: #FF0000;
+    }
+
+    .back-home {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .back-home button {
+      background: #00FFDD;
+    }
+
+  </style>
 </head>
 <body>
-<header>Crystal SMP Citizen Dashboard</header>
-<div class="container" id="dashboardContainer"></div>
+
+  <h1>CRYSTAL SMP Admin Dashboard</h1>
+
+  <!-- Add New Citizen Button -->
+  <button onclick="window.location.href='citizen-add.html'">
+    Add New Citizen Information
+  </button>
+
+  <!-- Citizen List -->
+  <div id="citizenList">
+    <div class="citizen-card" onclick="showProfile('Umer', 'ID123', 'Leader', 'MPI Party', 'emeralds', '20', 'ThunderStorm')">
+      Umer – ID123
+    </div>
+    <div class="citizen-card" onclick="showProfile('AlexenderMartin', 'ID124', 'Judge', 'MPI Party', 'emeralds', '30', 'ThunderStorm')">
+      AlexenderMartin – ID124
+    </div>
+    <div class="citizen-card" onclick="showProfile('FaiqPro', 'ID125', 'Lawyer', 'UTI Party', 'emeralds', '25', 'Beeroot Company')">
+      FaiqPro – ID125
+    </div>
+  </div>
+
+  <!-- Profile Popup -->
+  <div class="profile-popup" id="profilePopup">
+    <h2 id="profileName">Name</h2>
+    <p><strong>ID:</strong> <span id="profileID"></span></p>
+    <p><strong>Role:</strong> <span id="profileRole"></span></p>
+    <p><strong>Party:</strong> <span id="profileParty"></span></p>
+    <p><strong>Emeralds:</strong> <span id="profileEmeralds"></span></p>
+    <p><strong>Age:</strong> <span id="profileAge"></span></p>
+    <p><strong>Company:</strong> <span id="profileCompany"></span></p>
+    <button class="close-btn" onclick="closeProfile()">Close</button>
+  </div>
+
+  <div class="back-home">
+    <button onclick="window.location.href='index.html'">Back to Home</button>
+  </div>
 
 <script>
-const role = localStorage.getItem('loggedInRole');
-if(!role){ alert("Login required"); window.location.href='citizen-login.html'; }
-
-const container = document.getElementById('dashboardContainer');
-const players = JSON.parse(localStorage.getItem('players')||'[]');
-
-if(role==='player'){
-  const username = localStorage.getItem('loggedInUser');
-  const player = players.find(p=>p.username===username);
-  if(player){
-    container.innerHTML = `<div class="card">Welcome ${player.username} | ID: ${player.id}</div>
-      <button onclick="window.location.href='citizen-profile.html?user=${player.username}'">View Profile</button>`;
+  function showProfile(name, id, role, party, emeralds, age, company) {
+    document.getElementById('profileName').innerText = name;
+    document.getElementById('profileID').innerText = id;
+    document.getElementById('profileRole').innerText = role;
+    document.getElementById('profileParty').innerText = party;
+    document.getElementById('profileEmeralds').innerText = emeralds;
+    document.getElementById('profileAge').innerText = age;
+    document.getElementById('profileCompany').innerText = company;
+    document.getElementById('profilePopup').style.display = 'block';
   }
-} else if(role==='admin' || role==='police'){
-  if(players.length===0){
-    container.innerHTML = "<p>No registered players yet.</p>";
-  } else {
-    // Search Bar
-    container.innerHTML = '<input type="text" id="searchInput" placeholder="Search by name / ID..." style="width:100%;padding:10px;border-radius:6px;margin-bottom:15px;border:none;">';
-    const listDiv = document.createElement('div');
-    listDiv.id='playerList';
-    container.appendChild(listDiv);
 
-    function renderPlayers(filter=""){
-      listDiv.innerHTML="";
-      players.filter(p=>p.username.toLowerCase().includes(filter.toLowerCase()) || p.id.includes(filter)).forEach(p=>{
-        const card = document.createElement('div');
-        card.className='card';
-        card.innerHTML=`${p.username} | ID: ${p.id} <button onclick="viewProfile('${p.username}')">View Profile</button>`;
-        listDiv.appendChild(card);
-      });
-    }
-    renderPlayers();
-
-    document.getElementById('searchInput').addEventListener('input', e=>{
-      renderPlayers(e.target.value);
-    });
+  function closeProfile() {
+    document.getElementById('profilePopup').style.display = 'none';
   }
-}
-
-function viewProfile(username){
-  window.location.href='citizen-profile.html?user='+username;
-}
 </script>
+
 </body>
 </html>
