@@ -19,7 +19,7 @@ button { padding:8px 12px; margin-top:10px; border:none; border-radius:6px; back
 
 <script>
 const role = localStorage.getItem('loggedInRole');
-if(!role) { alert("Login required"); window.location.href='citizen-login.html'; }
+if(!role){ alert("Login required"); window.location.href='citizen-login.html'; }
 
 const container = document.getElementById('dashboardContainer');
 const players = JSON.parse(localStorage.getItem('players')||'[]');
@@ -35,11 +35,25 @@ if(role==='player'){
   if(players.length===0){
     container.innerHTML = "<p>No registered players yet.</p>";
   } else {
-    players.forEach(p=>{
-      const card = document.createElement('div');
-      card.className='card';
-      card.innerHTML=`${p.username} | ID: ${p.id} <button onclick="viewProfile('${p.username}')">View Profile</button>`;
-      container.appendChild(card);
+    // Search Bar
+    container.innerHTML = '<input type="text" id="searchInput" placeholder="Search by name / ID..." style="width:100%;padding:10px;border-radius:6px;margin-bottom:15px;border:none;">';
+    const listDiv = document.createElement('div');
+    listDiv.id='playerList';
+    container.appendChild(listDiv);
+
+    function renderPlayers(filter=""){
+      listDiv.innerHTML="";
+      players.filter(p=>p.username.toLowerCase().includes(filter.toLowerCase()) || p.id.includes(filter)).forEach(p=>{
+        const card = document.createElement('div');
+        card.className='card';
+        card.innerHTML=`${p.username} | ID: ${p.id} <button onclick="viewProfile('${p.username}')">View Profile</button>`;
+        listDiv.appendChild(card);
+      });
+    }
+    renderPlayers();
+
+    document.getElementById('searchInput').addEventListener('input', e=>{
+      renderPlayers(e.target.value);
     });
   }
 }
