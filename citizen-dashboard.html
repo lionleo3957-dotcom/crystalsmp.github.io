@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Citizen Dashboard</title>
+<style>
+body{background:#111;color:white;font-family:Arial}
+.card{border:1px solid #444;margin:10px;padding:10px;border-radius:8px;cursor:pointer}
+.card:hover{background:#222}
+</style>
+</head>
+<body>
+
+<h1>Crystal SMP Data Base</h1>
+<div id="list"></div>
+
+<script>
+
+const role=localStorage.getItem("role");
+if(!role){ window.location.href="citizen-login.html"; }
+
+const users=JSON.parse(localStorage.getItem("users"))||[];
+
+const list=document.getElementById("list");
+
+users.forEach(u=>{
+  list.innerHTML+=`
+  <div class="card" onclick="viewProfile('${u.crystalID}')">
+    <b>${u.mcUser}</b> - ${u.crystalID}
+  </div>`;
+});
+
+function viewProfile(id){
+  localStorage.setItem("viewID",id);
+  window.location.href="citizen-profile.html";
+}
+</script>
+
+</body>
+</html>
