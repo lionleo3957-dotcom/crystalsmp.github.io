@@ -1,156 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Citizen Dashboard | Crystal SMP Admin</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      color: #00FFE0;
-      margin-bottom: 20px;
-    }
-
-    button {
-      padding: 10px 20px;
-      margin: 10px 0;
-      font-size: 1rem;
-      background: #FF00FF;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #FF69B4;
-    }
-
-    #citizenList {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .citizen-card {
-      background: rgba(255,255,255,0.08);
-      padding: 15px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s, background 0.3s;
-    }
-
-    .citizen-card:hover {
-      transform: translateY(-5px);
-      background: rgba(255,255,255,0.15);
-    }
-
-    .profile-popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.95);
-      padding: 20px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 500px;
-      color: #fff;
-      z-index: 100;
-    }
-
-    .profile-popup h2 {
-      text-align: center;
-      margin-bottom: 10px;
-      color: #39FF14;
-    }
-
-    .profile-popup p {
-      margin: 5px 0;
-    }
-
-    .close-btn {
-      display: block;
-      margin: 15px auto 0 auto;
-      background: #FF0000;
-    }
-
-    .back-home {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .back-home button {
-      background: #00FFDD;
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Dashboard</title>
+<style>
+body{ font-family:Arial,sans-serif; background:linear-gradient(135deg,#ff6ec7,#ffc600,#42f5bf); color:#000; margin:0; padding:0;}
+header{padding:20px;text-align:center;background:rgba(0,0,0,0.3); color:#fff;}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; max-width:1200px; margin:20px auto;}
+.card{background:rgba(255,255,255,0.2); padding:20px; border-radius:12px; text-align:center; cursor:pointer; transition:0.3s;}
+.card:hover{background:rgba(255,255,255,0.35); transform:translateY(-5px);}
+button{padding:10px; border:none; border-radius:6px; cursor:pointer; background:#39ff14; font-weight:bold;}
+</style>
 </head>
 <body>
+<header>
+<h1>Crystal SMP Citizen Dashboard</h1>
+<p id="welcome"></p>
+</header>
 
-  <h1>CRYSTAL SMP Admin Dashboard</h1>
-
-  <!-- Add New Citizen Button -->
-  <button onclick="window.location.href='citizen-add.html'">
-    Add New Citizen Information
-  </button>
-
-  <!-- Citizen List -->
-  <div id="citizenList">
-    <div class="citizen-card" onclick="showProfile('Umer', 'ID123', 'Leader', 'MPI Party', 'emeralds', '20', 'ThunderStorm')">
-      Umer – ID123
-    </div>
-    <div class="citizen-card" onclick="showProfile('AlexenderMartin', 'ID124', 'Judge', 'MPI Party', 'emeralds', '30', 'ThunderStorm')">
-      AlexenderMartin – ID124
-    </div>
-    <div class="citizen-card" onclick="showProfile('FaiqPro', 'ID125', 'Lawyer', 'UTI Party', 'emeralds', '25', 'Beeroot Company')">
-      FaiqPro – ID125
-    </div>
-  </div>
-
-  <!-- Profile Popup -->
-  <div class="profile-popup" id="profilePopup">
-    <h2 id="profileName">Name</h2>
-    <p><strong>ID:</strong> <span id="profileID"></span></p>
-    <p><strong>Role:</strong> <span id="profileRole"></span></p>
-    <p><strong>Party:</strong> <span id="profileParty"></span></p>
-    <p><strong>Emeralds:</strong> <span id="profileEmeralds"></span></p>
-    <p><strong>Age:</strong> <span id="profileAge"></span></p>
-    <p><strong>Company:</strong> <span id="profileCompany"></span></p>
-    <button class="close-btn" onclick="closeProfile()">Close</button>
-  </div>
-
-  <div class="back-home">
-    <button onclick="window.location.href='index.html'">Back to Home</button>
-  </div>
+<div class="grid" id="dashboard">
+  <div class="card" onclick="window.location.href='citizen-profile.html'">View My Profile</div>
+</div>
 
 <script>
-  function showProfile(name, id, role, party, emeralds, age, company) {
-    document.getElementById('profileName').innerText = name;
-    document.getElementById('profileID').innerText = id;
-    document.getElementById('profileRole').innerText = role;
-    document.getElementById('profileParty').innerText = party;
-    document.getElementById('profileEmeralds').innerText = emeralds;
-    document.getElementById('profileAge').innerText = age;
-    document.getElementById('profileCompany').innerText = company;
-    document.getElementById('profilePopup').style.display = 'block';
-  }
+const role = localStorage.getItem('role');
+const user = localStorage.getItem('user');
+document.getElementById('welcome').innerText = 'Welcome, ' + user + ' ('+role+')';
 
-  function closeProfile() {
-    document.getElementById('profilePopup').style.display = 'none';
-  }
+// Show Add New Citizen button only for admin
+if(role==='admin'){
+  const dash = document.getElementById('dashboard');
+  const btn = document.createElement('div');
+  btn.className='card';
+  btn.innerHTML = '<button onclick="window.location.href=\'citizen-add.html\'">Add New Citizen Information</button>';
+  dash.appendChild(btn);
+}
 </script>
-
 </body>
 </html>
