@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Profile | Crystal SMP</title>
+<style>
+body { font-family: Arial, sans-serif; background:#0c0c0c; color:#fff; padding:20px; }
+h2 { color:#FFD700; text-align:center; }
+.profile { background: rgba(255,255,255,0.05); padding:20px; border-radius:10px; max-width:600px; margin:20px auto; }
+span.label { color:#39FF14; font-weight:bold; }
+</style>
+</head>
+<body>
+<h2>Crystal SMP Data Base</h2>
+<div class="profile" id="profileContainer"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const userParam = params.get('user');
+const players = JSON.parse(localStorage.getItem('players')||'[]');
+const profileContainer = document.getElementById('profileContainer');
+
+const player = players.find(p=>p.username===userParam);
+if(player){
+  profileContainer.innerHTML=`
+    <p><span class="label">Username:</span> ${player.username}</p>
+    <p><span class="label">Minecraft Username:</span> ${player.minecraftUsername}</p>
+    <p><span class="label">Email:</span> ${player.email}</p>
+    <p><span class="label">Date of Birth:</span> ${player.dob}</p>
+    <p><span class="label">Age:</span> ${player.age}</p>
+    <p><span class="label">Motive:</span> ${player.motive}</p>
+    <p><span class="label">Status:</span> ${player.status}</p>
+    <p><span class="label">Property:</span> ${player.property}</p>
+    <p><span class="label">Business:</span> ${player.business}</p>
+    <p><span class="label">Companies:</span> ${player.companies}</p>
+    <p><span class="label">Networth:</span> ${player.networth}</p>
+    <p><span class="label">Other Minecraft Username:</span> ${player.otherUsername}</p>
+  `;
+}else{
+  profileContainer.innerHTML="<p>Player not found!</p>";
+}
+</script>
+</body>
+</html>
